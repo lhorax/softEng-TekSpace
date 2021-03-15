@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+
+
+    <title>Dashboard - TekSpace Admin</title>
+
+    <!-- Custom fonts for this template-->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+    <!-- Custom styles for this template-->
+	<link href="../css/temp.css" rel="stylesheet">
+    <link href="../css/socialNet.css" rel="stylesheet">
+    <link href="../css/modals.css" rel="stylesheet">
+    
+</head>
+
+<body>
+
+
+    <!-- Page Wrapper -->
+    <div id="wrapper" class="d-flex" >
+
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="border-right: 2px solid #610a0c">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">TekSpace</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item ">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Fields
+            </div>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item ">
+                <a class="nav-link" href="">
+                    <i class="fa fa-users"></i>
+                    <span>Students</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href=''>
+                    <i class="fas fa-bars"></i>
+                    <span>Sessions</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href=''>
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Social Network</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column" style="z-index: 1;">
+
+            <!-- <div class="watermark" style="z-index: -1;"></div> -->
+
+            <img src="../images/CITLOGO.png" id="watermark" alt="">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline">
+                                    <span>Ada Velasquez</span>
+                                </span>
+                                <img class="img-profile rounded-circle"
+                                    src="../images/placeholder.png">
+                            </a>
+                            <!-- Dropdown - User Information -->
+
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <form method="POST">
+                                    <button type= 'submit' name='logout' class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <!--  CODE THE BODY HERE-->
+                <div class="container-fluid">
+                    <div class ='social-container'>
+                        <div class="pt-2 pl-3">
+                            <span>
+                                <span>
+                                    <h1 class='social-label'>Activity ></h1>                                    
+                                    <h3 style="display: inline-block;">Sumobot Contest</h3>
+                                </span>
+                                <button type="button" class="btn backBtn" onclick="window.location = 'SocialNet.html'">Back</button>
+                                <button type="button" class="btn deleteBtn" data-toggle="modal" data-target="#deleteActivity">Remove</button>
+                                <button type="button" class="btn updateBtn" data-toggle="modal" data-target="#updateActivity">Update</button>
+                            </span>                            
+                        </div>
+                        <br>
+                        <div class="activity-content">
+                            <div class="row pl-3 pr-3">
+                                <div class="col activityDesc">                                    
+                                    <div class="mx-auto">
+                                        <div class="card align-items-center">
+                                            <img class="card-img-top" src="../images/CITLOGO.png" alt="Card image">
+                                            <div class="card-body">
+                                                <p class='card-text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="vertical-line"></div>
+                                <div class="col activityInfo">
+                                    <h5>Activity Information</h5>
+                                    <table class="table table-hover">
+                                        <tr>
+                                            <td style="width: 20%;">Venue : </td>
+                                            <td>CIT-U GYM</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 20%;">Date :</td>
+                                            <td>03/15/2021</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 20%;">Tags :</td>
+                                            <td>
+                                                <img class="table-img" src="../images/CITLOGO.png" alt="interest image">
+                                                <img class="table-img" src="../images/CITLOGO.png" alt="interest image">
+                                                <img class="table-img" src="../images/CITLOGO.png" alt="interest image">
+                                                <img class="table-img" src="../images/CITLOGO.png" alt="interest image">
+                                                <img class="table-img" src="../images/CITLOGO.png" alt="interest image">
+                                                <img class="table-img" src="../images/CITLOGO.png" alt="interest image">
+                                                <img class="table-img" src="../images/CITLOGO.png" alt="interest image">
+                                                <img class="table-img" src="../images/CITLOGO.png" alt="interest image">
+                                                <img class="table-img" src="../images/CITLOGO.png" alt="interest image">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+                <br><br><br>
+                <!-- Footer -->
+                <footer class="page-footer font-small" style="position: fixed; bottom: 0px;">
+                    <div class="container">
+                        <div class="flex-sb-m flex-w p-t-22 p-b-22">
+                            <div class="txt17" style="color:gray">
+                                Copyright © 2021 All rights reserved | This project is made with <i
+                                    class="fa fa-heart"></i> by <a href="#" target="_blank"
+                                    style="color:#f8c400">TECHONOWORKSPACE</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+            </div>
+            <!-- End main content -->
+        </div>
+        <!-- End content-wrapper -->
+    </div>
+    <!-- End wrapper  -->
+
+
+
+    <!-- modals -->
+    <div class='modal fade' id='updateActivity' role="dialog">
+        <div class='modal-dialog'>
+            <div class='modal-content'>
+                <div class="modal-header justify-content-center">
+                    <h4 class="modal-title">Update Activity</h4>
+                </div>
+                <form method='POST'>
+                    <div class='modal-body'>
+                        <div class='form-group'>
+                            <input type='text' class='form-control' id='activityName' name='activityName' placeholder="Name" aria-describedby=''>
+                        </div>
+                        <div class='form-group'>
+                            <span class='row'>
+                                <div class="col-lg">
+                                    <input type='text' class='form-control' id='activityVenue' name='activityVenue' placeholder="Venue" aria-describedby=''>
+                                </div>
+                                <div class="col-lg">
+                                    <input type='date' class='form-control' id='activityDate' name='activityDate' placeholder="Date" aria-describedby=''>
+                                </div>   
+                            </span>                                                             
+                        </div>
+                        <div class="form-group">
+                            <p class="modalFileLabel">Select tags for this activity</p>
+                            <div class="row image-row">
+                                <div class="column image-column"><img class="modalTinyImgs" src="../images/CITLOGO.png" alt="Activity image"></div>
+                                <div class="column image-column"><img class="modalTinyImgs" src="../images/CITLOGO.png" alt="Activity image"></div>
+                                <div class="column image-column"><img class="modalTinyImgs" src="../images/CITLOGO.png" alt="Activity image"></div>
+                            </div>                                
+                        </div>
+                        <div class='form-group'>
+                            <textarea type='text' class='form-control' id='activityDesc' name='activityDesc' placeholder="Description" rows="5" aria-describedby=''></textarea>
+                        </div>
+                    </div>                    
+                    <div class='modal-footer'>
+                        <button type='submit' name='addSessionBtn' class='btn modalYesBtn'>Add</button>
+                        <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class='modal fade' id='deleteActivity' role="dialog">
+        <div class='modal-dialog'>
+            <div class='modal-content'>
+                <form method = 'POST' > 
+                    <div class='modal-body'>
+                        <div class='deleteWarning'>Are you sure you want to delete this Activity?</div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='submit' name='addSessionBtn' class='btn modalYesBtn'>Yes</button>
+                        <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+
+    <script src="../js/temp.js"></script>
+
+
+</body>
+
+</html>
