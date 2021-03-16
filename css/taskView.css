@@ -1,0 +1,57 @@
+.card{
+    padding-top: 0;
+    line-height: 2em;
+    border-radius: 25px;
+}
+
+table{
+    table-layout: fixed;
+    border: 1px solid #F6F6F6;
+}
+
+td, th {
+    width: 33.33%;
+    text-align: center;
+}
+
+#score, #dueDate{
+    color: #E5383B;
+}
+
+#createdDate{
+    color: #38E573;
+}
+
+.btnRemove{
+    color: #E5383B;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.btnRemove:hover{
+    color: #F8C400;
+}
+
+.btnProceed{
+    color: white;
+    background-color: #FADA5F;
+    outline-color: transparent;
+    border: transparent;
+    border-radius: 5px;
+}
+
+.card-body{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.card-title{
+    color: #610A0C;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 58px
+}

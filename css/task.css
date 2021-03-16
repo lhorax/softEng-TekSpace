@@ -1,0 +1,82 @@
+.card{
+    padding-top: 0;
+    line-height: 2em;
+    border-radius: 25px;
+}
+
+.card-body{
+    padding: 25px;
+}
+
+#cards{
+    padding: 25px;
+    padding-top: 10px;
+}
+
+thead{
+    background-color: #F6F6F6;
+}
+
+table{
+    border: 1px solid #F6F6F6;
+    border-collapse: collapse;
+    box-shadow: 1px 1px 1px rgb(170, 165, 165);
+    table-layout: fixed;
+}
+
+
+td {
+    width: 10%;
+    text-align: center;
+}
+
+#score, #dueDate{
+    color: #E5383B;
+}
+
+#createdDate{
+    color: #38E573;
+}
+
+#btnHead{
+    color: white;
+    border-radius: 25px;
+}
+
+.btnRemove{
+    color: #F8C400;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.btnRemove:hover{
+    color: #E5383B;
+}
+
+#sessionTitle{
+    color: #610A0C;
+}
+
+.removeTask{
+    color: #610A0C;
+    font-size: 700;
+    text-align: center;
+    padding: 30px;
+}
+
+#tabs{
+    color: #610A0C;
+    
+}
+
+.btnProceed{
+    color: white;
+    background-color: #FADA5F;
+    outline-color: transparent;
+    border: transparent;
+    border-radius: 5px;
+}
