@@ -150,6 +150,10 @@
     color: #38E573;
 }
 
+.task-details{
+    cursor: pointer;
+}
+
 
 /* Modules */
 .module-content{
