@@ -1,0 +1,259 @@
+.social-container{
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px 4px rgba(97, 10, 12, 0.3);
+    background-color: #ffffff;
+}
+
+.social-label{
+    color: #610A0C;
+    font-size: 35px;
+    display: inline-block;
+}
+
+.addBtn{
+    background-color: #f8c400;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    font-weight: 20px;
+    text-align: center;
+    float: right;
+    margin: 0px 10px;
+}
+
+.addBtn:hover, .updateBtn:hover{
+    color: #610A0C;
+}
+
+.backBtn{
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-weight: 20px;
+    text-align: center;
+    float: right;
+    margin: 0px 15px;
+}
+
+.updateBtn{
+    background-color: #f8c400;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-weight: 20px;
+    text-align: center;
+    float: right;
+    margin: 0px 10px;
+}
+
+.deleteBtn{
+    background-color: #610A0C;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-weight: 20px;
+    text-align: center;
+    float: right;
+    margin: 0px 10px;
+}
+
+.deleteBtn:hover{
+    color:#f8c400;
+}
+
+.scrollmenuH{
+    overflow: auto;
+    white-space: nowrap;
+}
+
+/* Scrollbar */
+.scrollmenuH::-webkit-scrollbar {
+    width: 12px;         
+}
+
+/* Track */
+.scrollmenuH::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px;
+}
+
+/* Handle */
+.scrollmenuH::-webkit-scrollbar-thumb {
+    background: rgba(97, 10, 12, 0.53);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.scrollmenuH::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.interest-list .card{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.interest-list .card-img-top{
+    height: 100px;
+    width: auto;
+}
+
+.activity-list .table-img{
+    height: 80px;
+    width: auto;
+}
+
+.interest-list .card-text{
+    text-align: center;
+    color: #000000;
+    font-weight: bold;
+}
+
+.scrollmenuV{
+    max-height: 500px;
+    height: 100%;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+/* Scrollbar */
+.scrollmenuV::-webkit-scrollbar {
+    width: 10px;         
+}
+
+/* Track */
+.scrollmenuV::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px;
+}
+
+/* Handle */
+.scrollmenuV::-webkit-scrollbar-thumb {
+    background: rgba(97, 10, 12, 0.53);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.scrollmenuV::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.activity-table td{
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+#addActivity .image-row, #updateActivity .image-row{
+    display:flex;  
+    margin: 0px 2px;  
+}
+
+#addActivity .image-column, #updateActivity .image-column{
+    padding: 3px;
+}
+
+
+
+/* Interest and Activity View */
+.interestDesc, .interestFollowers{
+    padding: 3px 3px 0px, 3px;
+    max-height: 550px;
+    height: 100%;    
+    background-color: #ffffff;
+}
+
+.activityDesc, .activityInfo{
+    padding: 3px 3px 0px, 3px;
+    height: auto;
+    background-color: #ffffff;
+}
+
+.interestDesc, .activityDesc{
+    overflow: hidden;
+}
+
+.interestDesc .card, .activityDesc .card{
+    border: none;
+    background-color: transparent;
+}
+
+.interestDesc .card-img-top, .activityDesc .card-img-top{
+    height: 200px;
+    width: 200px;
+}
+
+.interestDesc .card-text, .activityDesc .card-text{
+    text-align: center;
+    color: #000000;
+}
+
+.vertical-line{
+    border-left: 1px solid #000000;
+    height: auto;
+}
+
+.interestFollowers{    
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.interestFollowers h5{
+    text-align: left;
+    color: #000000;
+}
+
+.activityInfo h5{
+    text-align: center;
+    color: #000000;
+}
+
+.interestFollowers .table-img{
+    height: 50px;
+    width: auto;
+    border-radius: 50%;
+}
+
+.activityInfo .table-img{
+    height: 50px;
+    width: auto;
+    border-radius: 50%;
+    margin: 5px;
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+.interestFollowers td{
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+.activityInfo td{
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+/* Scrollbar */
+.interestFollowers::-webkit-scrollbar {
+    width: 10px;         
+}
+
+/* Track */
+.interestFollowers::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px;
+}
+
+/* Handle */
+.interestFollowers::-webkit-scrollbar-thumb {
+    background: rgba(97, 10, 12, 0.53);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.interestFollowers::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+

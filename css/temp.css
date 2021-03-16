@@ -565,4 +565,5 @@ body {
   right: -200px;
   height: 550px;
   background-repeat: no-repeat;
+  z-index: -1;
 }
