@@ -6,6 +6,6 @@ from django.conf import settings
 
 app_name = 'Sessions'
 urlpatterns = [ 
-    path('', views.SessionsIndexView.as_view(), name="index_view"),
+    path('', views.SessionsView.as_view(), name="index_view"),
 ]
 urlpatterns+=static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
