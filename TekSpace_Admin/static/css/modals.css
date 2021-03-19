@@ -1,0 +1,50 @@
+.modal-title{
+    color: #610a0c;
+    font-size: 35px;
+}
+
+.modalYesBtn{
+    color: white;
+    background-color: #F8C400;
+}
+
+.modalYesBtn:hover{
+    color: #F8C400;
+    background-color: white;
+}
+
+.modal-body .form-group .form-control{
+    border: 1px solid #610A0C;
+}
+
+.modal-body .deleteWarning{
+    padding: 15px 5px;
+    color: #610a0c;
+    font-size: 25px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.modalFileLabel{
+    color: #F8C400;
+    margin: 5px;
+}
+
+.modalFileBtn{
+    display: none;
+}
+
+.modalCustomFile{
+    padding: 6px 12px;
+    cursor: pointer;
+    background: #610A0C;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #fff;
+}
+
+.modalTinyImgs{
+    height: 50px;
+    width: auto;
+    border-radius: 50%;
+}
