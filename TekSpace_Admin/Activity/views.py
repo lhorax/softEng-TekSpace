@@ -12,20 +12,25 @@ def activity_create(request):
         if 'addActivityBtn' in request.POST:
             form = ActivityForm(request.POST, files=request.FILES)
             if form.is_valid():
-                activity = form.save()
+                name = request.POST.get('act_name')
+                desc = request.POST.get('act_description')
+                venue = request.POST.get('act_venue')
+                date = request.POST.get('act_date')
+                photo = ''
+                if request.FILES.get('act_photo',False) != False:
+                    photo = request.FILES['act_photo']
+                interests = request.POST.getlist('interests')
                 messages.success(request, ("Activity Successfully Added"))
-                int_list = request.POST.getlist('interests')
-                for i in int_list:
-                    interest = Interest.objects.get(interest_id = i)
-                    activity.interests.add(interest)
             else:
-                print(form.errors)
+                print(form.error)
+
+                Activity.addActivity(name, desc, venue, date, photo, interests)
     return redirect('Social_Network:index_view')
 
 def activity_view(request, name):
-    activity = Activity.objects.get(act_name = name)
-    tags = activity.interests.all()
-    interests = Interest.objects.all()
+    activity = Activity.getActivity(name)
+    tags = Activity.getTags(name)
+    interests = Interest.getInterestList()
     context = {
         'activity':activity,
         'tags':tags,
@@ -34,17 +39,25 @@ def activity_view(request, name):
     return render(request, 'Activity/Activity.html',context)
 
 def activity_update(request):
-    name = request.POST.get('name')
+    # name = request.POST.get('name')
+    obj = request.POST.get('name')
     if request.method == 'POST':
         if 'updateActivityBtn' in request.POST:
-            activity = Activity.objects.get(act_name = name)
             form = ActivityForm(request.POST, files=request.FILES, instance=activity)
             if form.is_valid():
-                activity = form.save()
-                new_name = request.POST.get('act_name')
-                return redirect('Activity:activity_view', name = new_name)
+                name = request.POST.get('act_name')
+                desc = request.POST.get('act_description')
+                venue = request.POST.get('act_venue')
+                date = request.POST.get('act_date')
+                photo = ''
+                if request.FILES.get('act_photo',False) != False:
+                    photo = request.FILES['act_photo']
+                interests = request.POST.getlist('interests')
+                messages.success(request, ("Activity Successfully Updated"))
             else:
                 print(form.errors)
+
+            Activity.updateActivity(obj,name,desc,venue,date,photo,interests)
     return redirect('Activity:activity_view', name = name)
     
 
@@ -52,7 +65,7 @@ def activity_delete(request):
     if request.method == 'POST':
         if 'deleteActivityBtn' in request.POST:
             id = request.POST.get('id')
-            activity = Activity.objects.get(activity_id = id).delete()
+            Activity.deleteActivity(id)
             messages.success(request, ("Activity Successfully Deleted"))
     return redirect('Social_Network:index_view')
     

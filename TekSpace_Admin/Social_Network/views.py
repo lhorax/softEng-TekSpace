@@ -11,10 +11,10 @@ def index(request):
     return render(request, 'Social_Network/Social_Network.html', context)
 
 def getContext():
-    interest_list = Interest.objects.all
-    today_activity = Activity.objects.filter(act_date__date = date.today())
-    past_activity = Activity.objects.filter(act_date__date__lt = date.today())
-    future_activity = Activity.objects.filter(act_date__date__gt = date.today())
+    interest_list = Interest.getInterestList()
+    today_activity = Activity.getTodayActivities()
+    past_activity = Activity.getPastActivities()
+    future_activity = Activity.getFutureActivities()
 
     context = {
         'interests':interest_list,
