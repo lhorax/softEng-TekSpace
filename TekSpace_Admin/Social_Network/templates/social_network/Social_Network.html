@@ -1,0 +1,282 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Social Network - {% endblock %}
+
+{% block extra_head %}
+<link href="/static/css/socialNet.css" rel="stylesheet">
+<link href="/static/css/modals.css" rel="stylesheet">
+{% endblock %}
+
+{% block sidebar %}
+    <li class="nav-item ">
+        <a class="nav-link" href="">
+            <i class="fa fa-users"></i>
+            <span>Students</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'Sessions:index_view' %}">
+            <i class="fas fa-bars"></i>
+            <span>Sessions</span>
+        </a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'Social_Network:index_view' %}">
+            <i class="fas fa-project-diagram"></i>
+            <span>Social Network</span>
+        </a>
+    </li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class ='social-container'>
+        <div class="pt-2 pl-3">
+            <span>
+                <h1 class='social-label'>Interest</h1>
+                <button type="button" class="btn addBtn" data-toggle="modal" data-target="#addInterest">+</button>
+            </span>                            
+        </div>
+
+        <div class="pt-3 pl-3 pr-3 interest-list">
+            {% if interests.count > 0 %}
+            <div class='row pl-3 pr-3 scrollmenuH'>
+                <div class='card-deck flex-row flex-nowrap'>
+                    {% for interest in interests %}
+                    <a href=" {% url 'Interest:interest_view' interest.int_name %}" style="text-decoration: none;">
+                        <div class="card">
+                            <img class="card-img-top" src="{{ interest.int_photo.url }}" alt="Card image">
+                            <div class="card-body">
+                                <h5 class='card-text text-wrap'>{{ interest.int_name }}</h5>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>                                
+            </div>
+            {% else %}
+            <div class="pt-3 pl-3 pr-3 activity-list">
+                <div class='row pl-3 pr-3 table-responsive'>
+                    <table class="table table-hover activity-table">
+                        <thead class="text-center">
+                            <tr>
+                                <th>No Available Interest Yet</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <br>
+    <div class ='social-container '>
+        <div class="pt-2 pl-3">
+            <span>
+                <h1 class='social-label'>Activity</h1>
+                <button type="button" class="btn addBtn" data-toggle="modal" data-target="#addActivity">+</button>
+            </span>                            
+        </div>
+
+        {% if past_activity.count > 0 or today_activity.count > 0 or future_activity.count > 0 %}
+        <div class="pt-3 pl-3 pr-3 activity-list scrollmenuV">
+            <div class='row pl-3 pr-3 table-responsive'>
+                <table class="table table-hover activity-table">
+                    <thead class="text-center">
+                        <tr>
+                          <th></th>
+                          <th>Name</th>
+                          <th>Date</th>
+                          <th>Venue</th>
+                          <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    {% if today_activity.count > 0 %}
+                    <thead class="text-center">
+                        <tr>
+                          <th>Today</th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                    </thead>
+                    {% endif %}
+                    {% for act in today_activity %}
+                    <tbody class='text-center'>
+                            <tr class="clickable-row" data-href = "{% url 'Activity:activity_view' act.act_name %}">
+                                <td><img class="table-img" src="{{act.act_photo.url}}" alt="Activity image"></td>
+                                <td>{{act.act_name}}</td>
+                                <td>{{act.act_date|date:'Y-m-d'}}</td>
+                                <td>{{act.act_venue}}</td>
+                                <td style='color: #2ECC71'>Ongoing</td>
+                            </tr>
+                    </tbody>
+                    {% endfor %}
+
+                    {% if future_activity.count > 0 %}
+                    <thead class="text-center">
+                        <tr>
+                          <th>Upcoming</th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                    </thead>
+                    {% endif %}
+                    {% for act in future_activity %}
+                    <tbody class='text-center'>
+
+                            <tr class="clickable-row" data-href = "{% url 'Activity:activity_view' act.act_name %}">
+                                <td><img class="table-img" src="{{act.act_photo.url}}" alt="Activity image"></td>
+                                <td>{{act.act_name}}</td>
+                                <td>{{act.act_date|date:'Y-m-d'}}</td>
+                                <td>{{act.act_venue}}</td>
+                                <td style='color: #2ECC71'>Open</td>
+                            </tr>
+                    </tbody>
+                    {% endfor %}
+
+                    {% if past_activity.count > 0 %}
+                    <thead class="text-center">
+                        <tr>
+                          <th>Closed</th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                    </thead>
+                    {% endif %}
+                    {% for act in past_activity %}
+                    <tbody class='text-center'>
+                            <tr class="clickable-row" data-href = "{% url 'Activity:activity_view' act.act_name %}">
+                                <td><img class="table-img" src="{{act.act_photo.url}}" alt="Activity image"></td>
+                                <td>{{act.act_name}}</td>
+                                <td>{{act.act_date|date:'Y-m-d'}}</td>
+                                <td>{{act.act_venue}}</td>
+                                <td style='color: #A83332'>Closed</td>
+                            </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <div class="pt-3 pl-3 pr-3 activity-list">
+            <div class='row pl-3 pr-3 table-responsive'>
+                <table class="table table-hover activity-table">
+                    <thead class="text-center">
+                        <tr>
+                          <th>No Available Activity Yet</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+        
+    </div>
+</div>
+{% endblock %}
+
+
+{% block modals %}
+ <!-- modals -->
+ <div class='modal fade' id='addInterest' role="dialog">
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class="modal-header justify-content-center">
+                <h4 class="modal-title">Add Interest</h4>
+            </div>
+            <form method='POST' action = "{% url 'Interest:interest_create' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class='modal-body'>
+                        <div class='form-group'>
+                            <input type='text' class='form-control' id='interestName' name='int_name' placeholder="Name" aria-describedby='' required>
+                        </div>
+                        <div class='form-group'>
+                            <textarea type='text' class='form-control' id='interestDesc' name='int_description' placeholder="Description" rows="5" aria-describedby='' required></textarea>
+                        </div>
+                        <div class='form-group'>
+                            <p class='modalFileLabel'>Interest Photo</p>
+                            <label for="interestImg" class='modalCustomFile'>Choose Image                                    
+                                <input type="file" id="interestImg" name="int_photo" class='modalFileBtn'>
+                            </label>
+                            <p class="modalFileLabel" style="display: inline-block;"></p>
+                        </div>
+                </div>                    
+                <div class='modal-footer'>
+                    <button type='submit' name='addInterestBtn' class='btn modalYesBtn'>Add</button>
+                    <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class='modal fade' id='addActivity' role="dialog">
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class="modal-header justify-content-center">
+                <h4 class="modal-title">Add Activity</h4>
+            </div>
+            <form method='POST' action = "{% url 'Activity:activity_create' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class='modal-body'>
+                    <div class='form-group'>
+                        <input type='text' class='form-control' id='activityName' name='act_name' placeholder="Name" aria-describedby='' required>
+                    </div>
+                    <div class='form-group'>
+                        <span class='row'>
+                            <div class="col-lg">
+                                <input type='text' class='form-control' id='activityVenue' name='act_venue' placeholder="Venue" aria-describedby='' required>
+                            </div> 
+                        </span>                                                    
+                    </div>
+
+                    <div class="form-group">
+                        <span class="row">
+                            <div class="col-lg">
+                                <input type='datetime-local' class='form-control' id='activityDate' name='act_date' placeholder="Date" aria-describedby='' required>
+                            </div>  
+                        </span>  
+                    </div>
+
+                    <div class='form-group'>
+                        <p class='modalFileLabel'>Activity Photo</p>
+                        <label for="actImg" class='modalCustomFile'>Choose Image                                    
+                            <input type="file" id="actImg" name="act_photo" class='modalFileBtn'>
+                        </label>
+                        <p class="modalFileLabel" style="display: inline-block;"></p>
+                    </div>
+
+                    <div class='form-group'>
+                        <textarea type='text' class='form-control' id='activityDesc' name='act_description' placeholder="Description" rows="5" aria-describedby='' required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <p class="modalFileLabel">Select tags for this activity</p>
+                        <select class="form-select form-select-lg" aria-label=".form-select-lg example" name="interests" multiple>
+                            <option disabled>You can select multiple items</option>
+                            {% for interest in interests %}
+                                <option value="{{ interest.interest_id }}">{{ interest.int_name }}</option>
+                            {% endfor %}
+                        </select>                   
+                    </div>
+
+                </div>                    
+                <div class='modal-footer'>
+                    <button type='submit' name='addActivityBtn' class='btn modalYesBtn'>Add</button>
+                    <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

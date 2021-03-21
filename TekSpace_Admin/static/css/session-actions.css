@@ -202,3 +202,9 @@
     color: #610A0C;
     font-size: 20px;
 }
+
+.file_links{
+    text-decoration: none;
+    color: #000000;
+    font-size: 15px;
+}

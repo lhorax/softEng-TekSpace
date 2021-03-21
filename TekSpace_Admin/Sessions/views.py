@@ -25,8 +25,8 @@ class SessionsView(View):
                 messages.success(request, ("Session Successfully Deleted"))
 
             if 'viewSessionBtn' in request.POST:
-                self.goToSessionPage()
-                messages.success(request, ("Session will redirect to another page"))
+                self.goToSessionPage(request)
+                return redirect("Modules:index_view")
 
             context = self.updateTemplate()
             return render(request, 'Sessions/SessionsTemplate.html', context)
@@ -46,6 +46,7 @@ class SessionsView(View):
     def updateTemplate(self):
         return {'sessions' : self.viewSessions()}
 
-    def goToSessionPage(self):
-        pass
+    def goToSessionPage(self, request):
+        sid = request.POST.get("session_id")
+        request.session['sid'] = sid
     

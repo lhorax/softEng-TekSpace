@@ -10,3 +10,7 @@ table a{
 	background-color:#ef476f;
 	border:none;
 }
+
+.excelBtn:hover{
+	background-color:#ff164c;
+}
