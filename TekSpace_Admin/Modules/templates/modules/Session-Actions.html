@@ -1,0 +1,453 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+
+
+    <title>Dashboard - TekSpace Admin</title>
+
+    <!-- Custom fonts for this template-->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+    <!-- Custom styles for this template-->
+	<link href="{% static 'css/temp.css' %}" rel="stylesheet">
+    <link href="{% static 'css/modals.css' %}" rel="stylesheet">
+    <link href="{% static 'css/session-actions.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+
+    <!-- Page Wrapper -->
+    <div id="wrapper" class="d-flex" >
+
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="border-right: 2px solid #610a0c">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">TekSpace</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item ">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Fields
+            </div>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item ">
+                <a class="nav-link" href="">
+                    <i class="fa fa-users"></i>
+                    <span>Students</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href='Sessions.html'>
+                    <i class="fas fa-bars"></i>
+                    <span>Sessions</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href='SocialNet.html'>
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Social Network</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column" style="z-index: 1;">
+
+            <!-- <div class="watermark" style="z-index: -1;"></div> -->
+
+            <img src="{% static 'images/CITLOGO.png' %}" id="watermark" alt="">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline">
+                                    <span>Ada Velasquez</span>
+                                </span>
+                                <img class="img-profile rounded-circle"
+                                src="{% static 'images/placeholder.png' %}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <form method="POST">
+                                    <button type= 'submit' name='logout' class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <!--  CODE THE BODY HERE-->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <button style="color:white" type="button" class="btn btn-warning" onclick="window.location='Sessions.html'">Go back</button>
+                        <h1 class="mx-auto" style = "color: #610a0c"><b>CIT - 101 I am Teknoy</b></h1>
+                    </div>
+
+                    <div class="session-actions-container task-action">
+                        <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="module-tab" data-toggle="pill" href="#pills-modules" role="tab" aria-controls="pills-modules" aria-selected="true">Modules</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="task-tab" data-toggle="pill" href="#pills-tasks" role="tab" aria-controls="pills-tasks" aria-selected="false">Tasks</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="student-tab" data-toggle="pill" href="#pills-students" role="tab" aria-controls="pills-students" aria-selected="false">Students</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="analytics-tab" data-toggle="pill" href="#pills-analytics" role="tab" aria-controls="pills-analytics" aria-selected="false">Analytics</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="pills-tabContent">
+
+                            <div class="tab-pane fade show active" id="pills-modules" role="tabpanel" aria-labelledby="pills-modules-tab">
+                                <div style="overflow:auto; padding: 10px" class="col-12">
+                                    <div style="float:right;">
+                                        <button class = "btn addSectionBtn"  data-toggle="modal" data-target="#addModules">Add Module</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="module-content">
+                                    <div class='p-3 table-responsive'>
+                                        {% for module in modules%}
+                                        <table class="table table-borderless table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="4" class="header-title" >{{module.modulename}}</th>
+                                                    <th style="text-align: right;" class="dropdown">
+                                                        <button type="button" class="btn btnHead" data-toggle="dropdown" role="button" data-toggle="dropdown">...</button>
+                                                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                                                            <button class = "dropdown-item"  data-toggle="modal" data-target="#addFile-{{module.mod_ID}}">Add File</button>
+                                                        <form method='POST'>
+                                                            {% csrf_token %}
+                                                            <span class="dropdown-item" data-title='DeleteModules' data-toggle='modal' data-target='#deleteModules-{{module.mod_ID}}'>
+                                                                <a data-placement='top' data-toggle='tooltip' title='Delete Modules' type='button'>Delete Module</a>
+                                                            </span>
+                                                        </form>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for file in module.files %}
+                                                <tr>
+                                                    <td colspan="4" style="text-indent: 25px;"><a href="{{file.files.url}}" target="_blank"> {{file.files}} </a></td>
+                                                    <td class="text-right"><button type="button" data-toggle="modal" data-target="#deleteFile-{{file.id}}" class="deleteBtn">X</button></td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>   
+                                        {% endfor %}
+                                    </div> 
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade task-content" id="pills-tasks" role="tabpanel" aria-labelledby="pills-tasks-tab">
+                                <div class='p-4 table-responsive'>
+                                    <table class="table table-borderless table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="4" class="header-title">Tasks</th>
+                                                <th style="text-align: right;"><button type="button" class="btn addBtn" data-toggle="modal" data-target="#addTask">+</button></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td onclick="window.location='TaskView.html'">Essay Writing</td>
+                                                <td class="score" onclick="window.location='TaskView.html'">5/30</td>
+                                                <td class="dueDate" onclick="window.location='TaskView.html'">Due: Jan 08,2021</td>
+                                                <td class="createdDate" onclick="window.location='TaskView.html'">Created: Jan 01,2021</td>                                             
+                                                <td><button type="button" data-toggle="modal" data-target="#deleteTask" class="deleteBtn">X</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td onclick="window.location='TaskView.html'">Quiz 1</td>
+                                                <td class="score" onclick="window.location='TaskView.html'">10/30</td>
+                                                <td class="dueDate" onclick="window.location='TaskView.html'">Due: Jan 08,2021</td>
+                                                <td class="createdDate" onclick="window.location='TaskView.html'">Created: Jan 01,2021</td>
+                                                <td><button type="button" data-toggle="modal" data-target="#deleteTask" class="deleteBtn">X</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>     
+                                </div>  
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-students" role="tabpanel" aria-labelledby="pills-students-tab">Sample Content</div>
+                            <div class="tab-pane fade" id="pills-analytics" role="tabpanel" aria-labelledby="pills-analytics-tab">Sample Content</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+                <br><br><br>
+                
+                <!-- Footer -->
+                <footer class="page-footer font-small" style="position: fixed; bottom: 0px;">
+                    <div class="container">
+                        <div class="flex-sb-m flex-w p-t-22 p-b-22">
+                            <div class="txt17" style="color:gray">
+                                Copyright © 2021 All rights reserved | This project is made with <i
+                                    class="fa fa-heart"></i> by <a href="#" target="_blank"
+                                    style="color:#f8c400">TECHONOWORKSPACE</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+            </div>
+            <!-- End main content -->
+        </div>
+        <!-- End content-wrapper -->
+    </div>
+    <!-- End wrapper  -->
+
+
+    <!-- Modals -->
+    <div class='modal fade' id='deleteTask' role="dialog">
+        <div class='modal-dialog'>
+            <div class='modal-content'>
+                <form method = 'POST' > 
+                    <div class='modal-body'>
+                        <div class='deleteWarning'>Are you sure you want to delete this Task?</div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='submit' name='deleteTaskBtn' class='btn modalYesBtn'>Yes</button>
+                        <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class='modal fade' id='addTask' role="dialog">
+        <div class='modal-dialog'>
+            <div class='modal-content'>
+                <div class="modal-header justify-content-center">
+                    <h4 class="modal-title">Add a Task</h4>
+                </div>
+                <form method='POST'>
+                    <div class='modal-body'>
+                            <div class='form-group'>
+                                <input type='text' class='form-control' id='taskTitle' name='taskTitle' placeholder="Title" aria-describedby=''>
+                            </div>
+                            <div class='form-group'>
+                                <textarea type='text' class='form-control' id='taskDesc' name='taskDesc' placeholder="Description" rows="5" aria-describedby=''></textarea>
+                            </div>
+                            <div class='form-group'>
+                                <span class='row'>
+                                    <div class="col-lg">
+                                        <input type='date' class='form-control' id='taskDate' name='taskDate' placeholder="Date" aria-describedby=''>
+                                    </div>   
+                                    <div class="col-lg">
+                                        <input type='time' class='form-control' id='taskTime' name='taskTime' placeholder="Time" aria-describedby=''>
+                                    </div>
+                                </span>                                                             
+                            </div>
+                            <div class='form-group'>
+                                <label for="interestImg" class='modalCustomFile' style="display: inline-block;">
+                                    Choose File                                    
+                                    <input type="file" id="interestImg" name="interestImg" class='modalFileBtn'>
+                                </label>
+                                <p class="modalFileLabel" style="display: inline-block;">file.docs</p>
+                            </div>
+                    </div>                    
+                    <div class='modal-footer'>
+                        <button type='submit' name='addTaskBtn' class='btn modalYesBtn'>Add</button>
+                        <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class='modal fade' id='addModules' role="dialog">
+        <div class='modal-dialog'>
+            <div class='modal-content'>
+                <div class="modal-header justify-content-center">
+                    <h4 class="modal-title">Add a Module</h4>
+                </div>
+                <form method='POST' action="{% url 'Modules:index_view' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class='modal-body'>
+                            <div class='form-group'>
+                                <input type='text' class='form-control' name='modulename' placeholder="Module Name" aria-describedby=''>
+                            </div>
+                            <!-- <div class='form-group'>
+                                <input type="file" name="files" accept=".pdf">
+                            </div> -->
+                    </div>                    
+                    <div class='modal-footer'>
+                        <button type='submit' name='addModulesBtn' class='btn modalYesBtn'>Add</button>
+                        <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% for module in modules %}
+    <div class='modal fade' id='deleteModules-{{module.mod_ID}}' role="dialog">
+        <div class='modal-dialog'>
+            <div class='modal-content'>
+                <form method = 'POST' action="{% url 'Modules:index_view' %}"> 
+                    {% csrf_token %}
+                    <input type="text" name="mod_ID" value="{{module.mod_ID}}" hidden>
+                    <div class='modal-body'>
+                        <div class='deleteWarning'>Are you sure you want to delete this Module?</div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='submit' name='deleteModulesBtn' class='btn modalYesBtn'>Yes</button>
+                        <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class='modal fade' id='addFile-{{module.mod_ID}}' role="dialog">
+        <div class='modal-dialog'>
+            <div class='modal-content'>
+                <div class="modal-header justify-content-center">
+                    <h4 class="modal-title">Add a Document</h4>
+                </div>
+                <form method='POST' class="form-group" action="{% url 'Modules:index_view' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class='modal-body text-center'>
+                        <br>                    
+                        <div class='form-group'>
+                            <input type="text" name="module_id" value="{{module.mod_ID}}" hidden>
+                            <input type="file" name="files" accept=".pdf">
+                        </div>
+                    </div>                    
+                    <div class='modal-footer'>
+                        <button type='submit' name='addFileBtn' class='btn modalYesBtn'>Add</button>
+                        <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                    </div>
+                </div>  
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% for files in module.files%}
+        <div class='modal fade' id='deleteFile-{{files.id}}' role="dialog">
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <form method = 'POST' action="{% url 'Modules:index_view' %}"> 
+                        {% csrf_token %}
+                        <input type="text" name="fileID" value="{{files.id}}" hidden>
+                        <div class='modal-body'>
+                            <div class='deleteWarning'>Are you sure you want to delete this File?</div>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='submit' name='deleteFileBtn' class='btn modalYesBtn'>Yes</button>
+                            <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {% endfor %}
+
+    
+
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+
+    <script src="../js/temp.js"></script>
+    
+</body>
+
+</html>
