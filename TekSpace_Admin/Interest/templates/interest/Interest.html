@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+<link href="/static/css/socialNet.css" rel="stylesheet">
+<link href="/static/css/modals.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class ='social-container'>
+        <div class="pt-2 pl-3">
+            <span>
+                <span>
+                    <h1 class='social-label'>Interest ></h1>                                    
+                    <h3 style="display: inline-block;">{{ interest.int_name }}</h3>
+                </span>
+                <form method='POST' action = "{% url 'Social_Network:index_view' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn backBtn">Back</button>
+                </form>
+                <button type="button" class="btn deleteBtn" data-toggle="modal" data-target="#deleteInterest">Remove</button>
+                <button type="button" class="btn updateBtn" data-toggle="modal" data-target="#updateInterest">Update</button>
+            </span>                            
+        </div>
+        <br>
+        <div class="interest-content">
+            <div class="row pl-3 pr-3">
+                <div class="col interestDesc">                                    
+                    <div class="mx-auto">
+                        <div class="card align-items-center">
+                            <img class="card-img-top" src="{{interest.int_photo.url}}" alt="Card image">
+                            <div class="card-body">
+                                <p class='card-text'>{{interest.int_description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="col interestFollowers">
+                    <h5>Current Followers</h5>
+                    <table class="table table-hover">
+                        <tr>
+                            <td style="text-align: center;"><img class="table-img" src="../images/placeholder.png" alt="profile image"></td>
+                            <td>Primrose Manlosa</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><img class="table-img" src="../images/placeholder.png" alt="profile image"></td>
+                            <td>Primrose Manlosa</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><img class="table-img" src="../images/placeholder.png" alt="profile image"></td>
+                            <td>Primrose Manlosa</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><img class="table-img" src="../images/placeholder.png" alt="profile image"></td>
+                            <td>Primrose Manlosa</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><img class="table-img" src="../images/placeholder.png" alt="profile image"></td>
+                            <td>Primrose Manlosa</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><img class="table-img" src="../images/placeholder.png" alt="profile image"></td>
+                            <td>Primrose Manlosa</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;"><img class="table-img" src="../images/placeholder.png" alt="profile image"></td>
+                            <td>Primrose Manlosa</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block modals %}
+<!-- modals -->
+<div class='modal fade' id='updateInterest' role="dialog">
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class="modal-header justify-content-center">
+                <h4 class="modal-title">Update Interest</h4>
+            </div>
+            <form method='POST' action = "{% url 'Interest:interest_update' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="name" value="{{ interest.int_name }}">
+                <input type="hidden" name="id" value="{{ interest.interest_id }}">
+                <div class='modal-body'>
+                        <div class='form-group'>
+                            <input type='text' class='form-control' id='interestName' name='int_name' placeholder="Name" aria-describedby='' value="{{ interest.int_name }}">
+                        </div>
+                        <div class='form-group'>
+                            <textarea type='text' class='form-control' id='interestDesc' name='int_description' placeholder="Description" rows="5" aria-describedby=''>{{ interest.int_description }}</textarea>
+                        </div>
+                        <div class='form-group'>
+                            <p class='modalFileLabel'>Interest Photo</p>
+                            <label for="interestImg" class='modalCustomFile' style="display: inline-block;">Choose Image                                    
+                                <input type="file" id="interestImg" name="int_photo" class='modalFileBtn'>
+                            </label>
+                            <p class="modalFileLabel" style="display: inline-block;"></p>
+                        </div>
+                </div>                    
+                <div class='modal-footer'>
+                    <button type='submit' name='updateInterestBtn' class='btn modalYesBtn'>Update</button>
+                    <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class='modal fade' id='deleteInterest' role="dialog">
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <form method = 'POST' action = "{% url 'Interest:interest_delete' %}"> 
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ interest.interest_id }}">
+                <div class='modal-body'>
+                    <div class='deleteWarning'>Are you sure you want to delete this Interest?</div>
+                </div>
+                <div class='modal-footer'>
+                    <button type='submit' name='deleteInterestBtn' class='btn modalYesBtn'>Yes</button>
+                    <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
