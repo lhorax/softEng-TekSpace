@@ -8,15 +8,19 @@ def index(request):
     return render(request, 'Interest/Interest.html')
 
 def interest_create(request):
-    if 'addInterestBtn' in request.POST:
-        name = request.POST.get('int_name')
-        desc = request.POST.get('int_description')
-        photo = ''
-        if request.FILES.get('int_photo',False) != False:
-            photo = request.FILES['int_photo']
-            
-        Interest.addInterest(name,desc,photo)
-
+    if request.method == 'POST':
+        if 'addInterestBtn' in request.POST:
+            form = InterestForm(request.POST, request.FILES)
+            if form.is_valid():
+                name = request.POST.get('int_name')
+                desc = request.POST.get('int_description')
+                photo = ''
+                if request.FILES.get('int_photo',False) != False:
+                    photo = request.FILES['int_photo']
+                Interest.addInterest(name,desc,photo)
+                messages.success(request, ("Interest Successfully Created"))
+            else:
+                print(form.errors)
     return redirect('Social_Network:index_view')
 
 def interest_view(request, name):
@@ -27,19 +31,23 @@ def interest_view(request, name):
     return render(request, 'Interest/Interest.html',context)
 
 def interest_update(request):
-    obj = request.POST.get('name')
-    interest = Interest.objects.get(int_name = obj)
-    form = InterestForm(request.POST, request.FILES, instance=interest)
-    if form.is_valid():
-        name = request.POST.get('int_name')
-        desc = request.POST.get('int_description')
-        photo = ''
-        if request.FILES.get('int_photo',False) != False:
-            photo = request.FILES['int_photo']
+    if request.method == 'POST':
+        obj = request.POST.get('name')
+        if 'updateInterestBtn' in request.POST:
+            interest = Interest.getInterest(obj)
+            form = InterestForm(request.POST, request.FILES, instance=interest)
+            if form.is_valid():
+                name = request.POST.get('int_name')
+                desc = request.POST.get('int_description')
+                photo = ''
+                if request.FILES.get('int_photo',False) != False:
+                    photo = request.FILES['int_photo']
 
-        Interest.updateInterest(obj,name,desc,photo)
-        return redirect('Interest:interest_view', name = name)
-    else:
+                Interest.updateInterest(obj,name,desc,photo)
+                messages.success(request, ("Interest Successfully Updated"))
+                return redirect('Interest:interest_view', name = name)
+            else:
+                print(form.errors)
         return redirect('Interest:interest_view', name = obj)
 
 

@@ -31,6 +31,7 @@ class Activity(models.Model):
             for i in interests:
                 interest = Interest.objects.get(interest_id = i)
                 new_act.interests.add(interest)
+            # new_act.save()
         # except Exception as e:
             # print(e)
         
@@ -50,6 +51,7 @@ class Activity(models.Model):
             for i in interests:
                 interest = Interest.objects.get(interest_id = i)
                 act.interests.add(interest)
+            act.save()
         # except Exception as e:
             # print(e)
  
