@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.core.files import File
 from django.http import FileResponse, Http404
 from Sessions.models import Session
-from .models import Modules, Files
+from .models import Module, File
 from .forms import ModulesForm
 from .forms import FilesForm
 
@@ -50,29 +50,29 @@ class ModulesView(View):
         sid = request.session.get('sid')
         session = Session.getSession(sid)
         name = form.cleaned_data['modulename']
-        Modules.createModule(name, session)
+        Module.createModule(name, session)
 
     def addFiles(self, form, request):
         modID = request.POST.get('module_id')
         files = form.cleaned_data["files"]
-        Files.createFiles(modID, files)
+        File.createFiles(modID, files)
 
     def viewModules(self,request):
         sid = request.session.get('sid')
-        return Modules.getModules(sid)
+        return Module.getModules(sid)
     
     def deleteModules(self, request):
         mid = request.POST.get("mod_ID")
-        Modules.removeModules(mid)
+        Module.removeModules(mid)
     
     def deleteFiles(self, request):
         fid = request.POST.get("fileID")
-        Files.removeFiles(fid)
+        File.removeFiles(fid)
 
     def updateTemplate(self,request):
         modules = self.viewModules(request)
         for mod in modules: 
-            mod.files = Files.getFiles(mod.mod_ID)
+            mod.files = File.getFiles(mod.mod_ID)
         return {'modules': modules}
 
     

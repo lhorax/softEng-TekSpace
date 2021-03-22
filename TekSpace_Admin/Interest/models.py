@@ -12,5 +12,39 @@ class Interest(models.Model):
     class Meta:
         db_table = "Interest"
 
+    def addInterest(name, description, photo):
+        try:
+            new_interest = Interest()
+            new_interest.int_name = name
+            new_interest.int_description = description
+            if photo != '':
+                new_interest.int_photo = photo
+            new_interest.save()
+        except Exception as e:
+            print(e)
+    
+    def updateInterest(obj, name, description, photo):
+        # try:
+            if photo != '':
+                interest = Interest.objects.filter(int_name = obj).update(int_name = name, int_description = description, int_photo = photo)
+            else:
+                interest = Interest.objects.filter(int_name = obj).update(int_name = name, int_description = description)
+            # interest.save()
+            # return name
+        # except Exception as e:
+            # print(e)
+            # return obj
 
+
+    def deleteInterest(id):
+        Interest.objects.get(interest_id = id).delete()
+
+    def getInterestList():
+        return Interest.objects.all()
+    
+    def getInterest(name):
+        return Interest.objects.get(int_name = name)
+
+    def getStudents(interest):
+        return interest.students.all()
 

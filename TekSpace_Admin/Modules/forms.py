@@ -1,16 +1,16 @@
 from django import forms
-from .models import Modules, Files
+from .models import Module, File
 
 class ModulesForm(forms.ModelForm):
 
     class Meta:
-        model = Modules
+        model = Module
         fields = ['modulename']
 
 class FilesForm(forms.ModelForm):
 
     class Meta:
-        model = Files
+        model = File
         fields = ['files']
 
 

@@ -9,17 +9,19 @@ def index(request):
 
 def interest_create(request):
     if 'addInterestBtn' in request.POST:
-        form = InterestForm(request.POST, files=request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, ("Interest Successfully Added"))
-        else:
-            print(form.errors)
+        name = request.POST.get('int_name')
+        desc = request.POST.get('int_description')
+        photo = ''
+        if request.FILES.get('int_photo',False) != False:
+            photo = request.FILES['int_photo']
+            
+        Interest.addInterest(name,desc,photo)
+
     return redirect('Social_Network:index_view')
 
 def interest_view(request, name):
-    interest = Interest.objects.get(int_name = name)
-    students = interest.students.all()
+    interest = Interest.getInterest(name)
+    students = Interest.getStudents(interest)
     context = {
         'interest':interest,
         'students':students
@@ -27,24 +29,25 @@ def interest_view(request, name):
     return render(request, 'Interest/Interest.html',context)
 
 def interest_update(request):
-    name = request.POST.get('name')
-    if request.method == 'POST':
-        if 'updateInterestBtn' in request.POST:
-            interest = Interest.objects.get(int_name = name)
-            form = InterestForm(request.POST, request.FILES, instance=interest)
-            if form.is_valid():
-                form.save()
-                new_name = request.POST.get('int_name')
-                return redirect('Interest:interest_view', new_name)
-            else:
-                print(form.errors)
-    return redirect('Interest:interest_view', name = name)
+    obj = request.POST.get('name')
+    interest = Interest.objects.get(int_name = obj)
+    form = InterestForm(request.POST, request.FILES, instance=interest)
+    if form.is_valid():
+        name = request.POST.get('int_name')
+        desc = request.POST.get('int_description')
+        photo = ''
+        if request.FILES.get('int_photo',False) != False:
+            photo = request.FILES['int_photo']
 
+        Interest.updateInterest(obj,name,desc,photo)
+        return redirect('Interest:interest_view', name = name)
+    else:
+        return redirect('Interest:interest_view', name = obj)
 
 def interest_delete(request):
     if request.method == 'POST':
         if 'deleteInterestBtn' in request.POST:
             id = request.POST.get('id')
-            interest = Interest.objects.get(interest_id = id).delete()
+            Interest.deleteInterest(id)
             messages.success(request, ("Interest Successfully Deleted"))
     return redirect('Social_Network:index_view')
