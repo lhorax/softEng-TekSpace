@@ -1,197 +1,58 @@
-{% extends 'base.html' %}
+{% extends 'session_actions_base.html' %}
 {% load static %}
 
-{% block title %}Session Actions - {% endblock %}
-
-{% block extra_head %}
-    <link href="{% static 'css/modals.css' %}" rel="stylesheet">
-    <link href="{% static 'css/session-actions.css' %}" rel="stylesheet">
-{% endblock %}
-
-{% block sidebar %}
+{% block tabs %}
     <li class="nav-item ">
-        <a class="nav-link" href="">
-            <i class="fa fa-users"></i>
-            <span>Students</span>
-        </a>
-    </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'Sessions:index_view' %}">
-            <i class="fas fa-bars"></i>
-            <span>Sessions</span>
-        </a>
+        <a class="nav-link active" id="module-tab" data-toggle="pill" href="#pills-modules" role="tab" aria-controls="pills-modules" aria-selected="true">Modules</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'Social_Network:index_view' %}">
-            <i class="fas fa-project-diagram"></i>
-            <span>Social Network</span>
-        </a>
+        <a class="nav-link" id="task-tab" data-toggle="pill" href="#pills-tasks" role="tab" aria-controls="pills-tasks" aria-selected="false">Tasks</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="student-tab" data-toggle="pill" href="#pills-students" role="tab" aria-controls="pills-students" aria-selected="false">Students</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="analytics-tab" data-toggle="pill" href="#pills-analytics" role="tab" aria-controls="pills-analytics" aria-selected="false">Analytics</a>
     </li>
 {% endblock %}
 
-{% block content %}
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <form method="POST">
-            {% csrf_token %}
-            <button style="color:white" type="submit" name="goToSessionsPageBtn" class="btn btn-warning">Go back</button>
-        </form>
-        <h1 class="mx-auto" style = "color: #610a0c"><b>CIT - 101 I am Teknoy</b></h1>
-    </div>
 
-    <div class="session-actions-container task-action">
-        <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item ">
-                <a class="nav-link active" id="module-tab" data-toggle="pill" href="#pills-modules" role="tab" aria-controls="pills-modules" aria-selected="true">Modules</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="task-tab" data-toggle="pill" href="#pills-tasks" role="tab" aria-controls="pills-tasks" aria-selected="false">Tasks</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="student-tab" data-toggle="pill" href="#pills-students" role="tab" aria-controls="pills-students" aria-selected="false">Students</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="analytics-tab" data-toggle="pill" href="#pills-analytics" role="tab" aria-controls="pills-analytics" aria-selected="false">Analytics</a>
-            </li>
-        </ul>
-
-        <div class="tab-content" id="pills-tabContent">
-
-            <div class="tab-pane fade show active" id="pills-modules" role="tabpanel" aria-labelledby="pills-modules-tab">
-                <div style="overflow:auto; padding: 10px" class="col-12">
-                    <div style="float:right;">
-                        <button class = "btn addSectionBtn"  data-toggle="modal" data-target="#addModules">Add Module</button>
-                    </div>
-                </div>
-                
-                <div class="module-content">
-                    <div class='p-3 table-responsive'>
-                        {% for module in modules%}
-                        <table class="table table-borderless table-hover">
-                            <thead>
-                                <tr>
-                                    <th colspan="4" class="header-title" >{{module.modulename}}</th>
-                                    <th style="text-align: right;" class="dropdown">
-                                        <button type="button" class="btn btnHead" data-toggle="dropdown" role="button" data-toggle="dropdown">...</button>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
-                                            <button class = "dropdown-item"  data-toggle="modal" data-target="#addFile-{{module.mod_ID}}">Add File</button>
-                                        <form method='POST'>
-                                            {% csrf_token %}
-                                            <span class="dropdown-item" data-title='DeleteModules' data-toggle='modal' data-target='#deleteModules-{{module.mod_ID}}'>
-                                                <a data-placement='top' data-toggle='tooltip' title='Delete Modules' type='button'>Delete Module</a>
-                                            </span>
-                                        </form>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for file in module.files %}
-                                <tr>
-                                    <td colspan="4" style="text-indent: 25px;"><a class="file_links" href="{{file.files.url}}" target="_blank"> {{file.files}} </a></td>
-                                    <td class="text-right"><button type="button" data-toggle="modal" data-target="#deleteFile-{{file.id}}" class="deleteBtn">X</button></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>   
-                        {% endfor %}
-                    </div> 
-                </div>
-            </div>
-
-            <div class="tab-pane fade task-content" id="pills-tasks" role="tabpanel" aria-labelledby="pills-tasks-tab">
-                <div class='p-4 table-responsive'>
-                    <table class="table table-borderless table-hover">
-                        <thead>
-                            <tr>
-                                <th colspan="4" class="header-title">Tasks</th>
-                                <th style="text-align: right;"><button type="button" class="btn addBtn" data-toggle="modal" data-target="#addTask">+</button></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td onclick="window.location='TaskView.html'">Essay Writing</td>
-                                <td class="score" onclick="window.location='TaskView.html'">5/30</td>
-                                <td class="dueDate" onclick="window.location='TaskView.html'">Due: Jan 08,2021</td>
-                                <td class="createdDate" onclick="window.location='TaskView.html'">Created: Jan 01,2021</td>                                             
-                                <td><button type="button" data-toggle="modal" data-target="#deleteTask" class="deleteBtn">X</button></td>
-                            </tr>
-                            <tr>
-                                <td onclick="window.location='TaskView.html'">Quiz 1</td>
-                                <td class="score" onclick="window.location='TaskView.html'">10/30</td>
-                                <td class="dueDate" onclick="window.location='TaskView.html'">Due: Jan 08,2021</td>
-                                <td class="createdDate" onclick="window.location='TaskView.html'">Created: Jan 01,2021</td>
-                                <td><button type="button" data-toggle="modal" data-target="#deleteTask" class="deleteBtn">X</button></td>
-                            </tr>
-                        </tbody>
-                    </table>     
-                </div>  
-            </div>
-
-            <div class="tab-pane fade" id="pills-students" role="tabpanel" aria-labelledby="pills-students-tab">Sample Content</div>
-            <div class="tab-pane fade" id="pills-analytics" role="tabpanel" aria-labelledby="pills-analytics-tab">Sample Content</div>
-        </div>
-    </div>
+{% block module %}
+    <div class='p-3 table-responsive'>
+        {% for module in modules%}
+        <table class="table table-borderless table-hover">
+            <thead>
+                <tr>
+                    <th colspan="4" class="header-title" >{{module.modulename}}</th>
+                    <th style="text-align: right;" class="dropdown">
+                        <button type="button" class="btn btnHead" data-toggle="dropdown" role="button" data-toggle="dropdown">...</button>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                            <button class = "dropdown-item"  data-toggle="modal" data-target="#addFile-{{module.mod_ID}}">Add File</button>
+                        <form method='POST'>
+                            {% csrf_token %}
+                            <span class="dropdown-item" data-title='DeleteModules' data-toggle='modal' data-target='#deleteModules-{{module.mod_ID}}'>
+                                <a data-placement='top' data-toggle='tooltip' title='Delete Modules' type='button'>Delete Module</a>
+                            </span>
+                        </form>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in module.files %}
+                <tr>
+                    <td colspan="4" style="text-indent: 25px;"><a class="file_links" href="{{file.files.url}}" target="_blank"> {{file.files}} </a></td>
+                    <td class="text-right"><button type="button" data-toggle="modal" data-target="#deleteFile-{{file.id}}" class="deleteBtn">X</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>   
+        {% endfor %}
+    </div> 
 {% endblock %}
 
+
 {% block modals %}
-    <!-- Task Modals -->
-    <div class='modal fade' id='deleteTask' role="dialog">
-        <div class='modal-dialog'>
-            <div class='modal-content'>
-                <form method = 'POST' > 
-                    <div class='modal-body'>
-                        <div class='deleteWarning'>Are you sure you want to delete this Task?</div>
-                    </div>
-                    <div class='modal-footer'>
-                        <button type='submit' name='deleteTaskBtn' class='btn modalYesBtn'>Yes</button>
-                        <button type='button' class='btn' data-dismiss='modal'>Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class='modal fade' id='addTask' role="dialog">
-        <div class='modal-dialog'>
-            <div class='modal-content'>
-                <div class="modal-header justify-content-center">
-                    <h4 class="modal-title">Add a Task</h4>
-                </div>
-                <form method='POST'>
-                    <div class='modal-body'>
-                            <div class='form-group'>
-                                <input type='text' class='form-control' id='taskTitle' name='taskTitle' placeholder="Title" aria-describedby=''>
-                            </div>
-                            <div class='form-group'>
-                                <textarea type='text' class='form-control' id='taskDesc' name='taskDesc' placeholder="Description" rows="5" aria-describedby=''></textarea>
-                            </div>
-                            <div class='form-group'>
-                                <span class='row'>
-                                    <div class="col-lg">
-                                        <input type='date' class='form-control' id='taskDate' name='taskDate' placeholder="Date" aria-describedby=''>
-                                    </div>   
-                                    <div class="col-lg">
-                                        <input type='time' class='form-control' id='taskTime' name='taskTime' placeholder="Time" aria-describedby=''>
-                                    </div>
-                                </span>                                                             
-                            </div>
-                            <div class='form-group'>
-                                <label for="interestImg" class='modalCustomFile' style="display: inline-block;">
-                                    Choose File                                    
-                                    <input type="file" id="interestImg" name="interestImg" class='modalFileBtn'>
-                                </label>
-                                <p class="modalFileLabel" style="display: inline-block;">file.docs</p>
-                            </div>
-                    </div>                    
-                    <div class='modal-footer'>
-                        <button type='submit' name='addTaskBtn' class='btn modalYesBtn'>Add</button>
-                        <button type='button' class='btn' data-dismiss='modal'>Close</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Modules Modals -->
     <div class='modal fade' id='addModules' role="dialog">
         <div class='modal-dialog'>

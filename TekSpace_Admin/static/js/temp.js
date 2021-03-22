@@ -41,9 +41,18 @@ jQuery(document).ready(function($) {
     });
 });
 
+
+$('#backPageBtn').click(function(e){
+    if (window.history) {
+        window.history.pushState('', document.title, window.location.href.replace(window.location.hash, ''));
+    } else {
+        window.location.hash = '';
+    }
+});
+
 $('#pills-tab a').click(function(e) {
-e.preventDefault();
-$(this).tab('show');
+    e.preventDefault();
+    $(this).tab('show');
 });
 
 // store the currently selected tab in the hash value

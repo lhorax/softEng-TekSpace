@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'Social_Network',
     'Activity',
     'Interest',
-    'Modules'
+    'Modules',
 ]
 
 MIDDLEWARE = [
