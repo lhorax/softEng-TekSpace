@@ -24,6 +24,7 @@ def activity_create(request):
                 messages.success(request, ("Activity Successfully Added"))
             else:
                 print(form.errors)
+                messages.success(request, ("Sorry, there was an error making the activity"))
     return redirect('Social_Network:index_view')
 
 def activity_view(request, name):
@@ -57,6 +58,7 @@ def activity_update(request):
                 return redirect('Activity:activity_view', name = name)
             else:
                 print(form.errors)
+                messages.success(request, ("Sorry, there was an error updating the activity"))
         return redirect('Activity:activity_view', name = obj)
 
 def activity_delete(request):

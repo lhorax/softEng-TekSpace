@@ -21,6 +21,7 @@ def interest_create(request):
                 messages.success(request, ("Interest Successfully Created"))
             else:
                 print(form.errors)
+                messages.success(request, ("Sorry, there was an error creating the activity"))
     return redirect('Social_Network:index_view')
 
 def interest_view(request, name):
@@ -48,6 +49,7 @@ def interest_update(request):
                 return redirect('Interest:interest_view', name = name)
             else:
                 print(form.errors)
+                messages.success(request, ("Sorry, there was an error updating the interest"))
         return redirect('Interest:interest_view', name = obj)
 
 
