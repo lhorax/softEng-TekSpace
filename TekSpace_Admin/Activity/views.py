@@ -20,12 +20,11 @@ def activity_create(request):
                 if request.FILES.get('act_photo',False) != False:
                     photo = request.FILES['act_photo']
                 interests = request.POST.getlist('interests')
-                
                 Activity.addActivity(name, desc, venue, date, photo, interests)
                 messages.success(request, ("Activity Successfully Added"))
             else:
-                print(form.error)
-
+                print(form.errors)
+                messages.success(request, ("Sorry, there was an error making the activity"))
     return redirect('Social_Network:index_view')
 
 def activity_view(request, name):
@@ -40,11 +39,11 @@ def activity_view(request, name):
     return render(request, 'Activity/Activity.html',context)
 
 def activity_update(request):
-    # name = request.POST.get('name')
-    obj = request.POST.get('name')
     if request.method == 'POST':
+        obj = request.POST.get('name')
         if 'updateActivityBtn' in request.POST:
-            form = ActivityForm(request.POST, files=request.FILES)
+            activity = Activity.getActivity(obj)
+            form = ActivityForm(request.POST, files=request.FILES, instance=activity)
             if form.is_valid():
                 name = request.POST.get('act_name')
                 desc = request.POST.get('act_description')
@@ -54,14 +53,13 @@ def activity_update(request):
                 if request.FILES.get('act_photo',False) != False:
                     photo = request.FILES['act_photo']
                 interests = request.POST.getlist('interests')
-
                 Activity.updateActivity(obj,name,desc,venue,date,photo,interests)
                 messages.success(request, ("Activity Successfully Updated"))
+                return redirect('Activity:activity_view', name = name)
             else:
-                print("Error:")
                 print(form.errors)
-            
-    return redirect('Activity:activity_view', name = obj)  
+                messages.success(request, ("Sorry, there was an error updating the activity"))
+        return redirect('Activity:activity_view', name = obj)
 
 def activity_delete(request):
     if request.method == 'POST':

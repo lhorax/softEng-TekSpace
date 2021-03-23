@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block extra_head %}
 <link href="/static/css/socialNet.css" rel="stylesheet">
 <link href="/static/css/modals.css" rel="stylesheet">
@@ -49,7 +49,11 @@
                 <div class="col activityDesc">                                    
                     <div class="mx-auto">
                         <div class="card align-items-center">
-                            <img class="card-img-top" src="{{ activity.act_photo.url }}" alt="Card image">
+                            {% if activity.act_photo == 'default.png' %}
+                                <img class="card-img-top" src="{% static 'images/default.png' %}" alt="Card image">
+                            {% else %}
+                                <img class="card-img-top" src="{{ activity.act_photo.url }}" alt="Card image">
+                            {% endif %}
                             <div class="card-body">
                                 <p class='card-text'>{{activity.act_description}}</p>
                             </div>
@@ -73,7 +77,11 @@
                             {% if tags.count > 0 %}
                             <td>
                                 {% for tag in tags %}
-                                <img class="table-img" src="{{ tag.int_photo.url }}" alt="interest image">
+                                    {% if tag.int_photo == 'default.png' %}
+                                        <span data-placement='top' data-toggle='tooltip' title='{{ tag.int_name }}'><img class="table-img" src="{% static 'images/default.png' %}" alt="interest image"></span>
+                                    {% else %} 
+                                        <span data-placement='top' data-toggle='tooltip' title='{{ tag.int_name }}'><img class="table-img" src="{{ tag.int_photo.url }}" alt="interest image"></span>
+                                    {% endif %}
                                 {% endfor %}
                             </td>
                             {% else %}
@@ -130,7 +138,7 @@
                     </div>
 
                     <div class='form-group'>
-                        <textarea type='text' class='form-control' id='activityDesc' name='act_description' placeholder="Description" rows="5" aria-describedby='' required>{{ activity.act_description }}</textarea>
+                        <textarea type='text' class='form-control' id='activityDesc' name='act_description' placeholder="Description" rows="5" maxlength="300" aria-describedby='' required>{{ activity.act_description }}</textarea>
                     </div>
 
                     <div class="form-group">

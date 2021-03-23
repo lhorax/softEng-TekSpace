@@ -45,7 +45,11 @@
                     {% for interest in interests %}
                     <a href=" {% url 'Interest:interest_view' interest.int_name %}" style="text-decoration: none;">
                         <div class="card">
-                            <img class="card-img-top" src="{{ interest.int_photo.url }}" alt="Card image">
+                            {% if interest.int_photo == 'default.png' %}
+                                <img class="card-img-top" src="{% static 'images/default.png' %}" alt="Card image">
+                            {% else %}
+                                <img class="card-img-top" src="{{ interest.int_photo.url }}" alt="Card image">
+                            {% endif %}
                             <div class="card-body">
                                 <h5 class='card-text text-wrap'>{{ interest.int_name }}</h5>
                             </div>
@@ -106,7 +110,13 @@
                     {% for act in today_activity %}
                     <tbody class='text-center'>
                             <tr class="clickable-row" data-href = "{% url 'Activity:activity_view' act.act_name %}">
-                                <td><img class="table-img" src="{{act.act_photo.url}}" alt="Activity image"></td>
+                                <td>
+                                    {% if act.act_photo == 'default.png' %}
+                                        <img class="table-img" src="{% static 'images/default.png' %}" alt="Activity image">
+                                    {% else %}
+                                        <img class="table-img" src="{{act.act_photo.url}}" alt="Activity image">
+                                    {% endif %}
+                                </td>
                                 <td>{{act.act_name}}</td>
                                 <td>{{act.act_date|date:'Y-m-d'}}</td>
                                 <td>{{act.act_venue}}</td>
@@ -130,7 +140,13 @@
                     <tbody class='text-center'>
 
                             <tr class="clickable-row" data-href = "{% url 'Activity:activity_view' act.act_name %}">
-                                <td><img class="table-img" src="{{act.act_photo.url}}" alt="Activity image"></td>
+                                <td>
+                                    {% if act.act_photo == 'default.png' %}
+                                        <img class="table-img" src="{% static 'images/default.png' %}" alt="Activity image">    
+                                    {% else %}
+                                        <img class="table-img" src="{{act.act_photo.url}}" alt="Activity image">
+                                    {% endif %}
+                                </td>
                                 <td>{{act.act_name}}</td>
                                 <td>{{act.act_date|date:'Y-m-d'}}</td>
                                 <td>{{act.act_venue}}</td>
@@ -153,7 +169,13 @@
                     {% for act in past_activity %}
                     <tbody class='text-center'>
                             <tr class="clickable-row" data-href = "{% url 'Activity:activity_view' act.act_name %}">
-                                <td><img class="table-img" src="{{act.act_photo.url}}" alt="Activity image"></td>
+                                <td>
+                                    {% if act.act_photo == 'default.png' %}
+                                        <img class="table-img" src="{% static 'images/default.png' %}" alt="Activity image">
+                                    {% else %}
+                                        <img class="table-img" src="{{act.act_photo.url}}" alt="Activity image">
+                                    {% endif %}
+                                </td>
                                 <td>{{act.act_name}}</td>
                                 <td>{{act.act_date|date:'Y-m-d'}}</td>
                                 <td>{{act.act_venue}}</td>

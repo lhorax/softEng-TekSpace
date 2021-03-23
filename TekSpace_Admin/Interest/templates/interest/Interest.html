@@ -51,7 +51,11 @@
                 <div class="col interestDesc">                                    
                     <div class="mx-auto">
                         <div class="card align-items-center">
-                            <img class="card-img-top" src="{{interest.int_photo.url}}" alt="Card image">
+                            {% if interest.int_photo == 'default.png' %}
+                                <img class="card-img-top" src="{% static 'images/default.png' %}" alt="Card image">
+                            {% else %}
+                                <img class="card-img-top" src="{{ interest.int_photo.url }}" alt="Card image">
+                            {% endif %}
                             <div class="card-body">
                                 <p class='card-text'>{{interest.int_description}}</p>
                             </div>
@@ -99,7 +103,7 @@
                             <input type='text' class='form-control' id='interestName' name='int_name' placeholder="Name" aria-describedby='' value="{{ interest.int_name }}">
                         </div>
                         <div class='form-group'>
-                            <textarea type='text' class='form-control' id='interestDesc' name='int_description' placeholder="Description" rows="5" aria-describedby=''>{{ interest.int_description }}</textarea>
+                            <textarea type='text' class='form-control' id='interestDesc' name='int_description' placeholder="Description" rows="5" maxlength="300" aria-describedby=''>{{ interest.int_description }}</textarea>
                         </div>
                         <div class='form-group'>
                             <p class='modalFileLabel'>Interest Photo</p>
