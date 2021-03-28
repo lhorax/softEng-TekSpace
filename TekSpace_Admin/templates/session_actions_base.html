@@ -44,59 +44,15 @@
             {% endblock %}
         </ul>
 
-        <div class="tab-content" id="pills-tabContent">
-
-            <div class="tab-pane fade show active" id="pills-modules" role="tabpanel" aria-labelledby="pills-modules-tab">
-                <div style="overflow:auto; padding: 10px" class="col-12">
-                    <div style="float:right;">
-                        <button class = "btn addSectionBtn"  data-toggle="modal" data-target="#addModules">Add Module</button>
-                    </div>
-                </div>
-                
-                <div class="module-content">
-                    {% block module %}
-                    {% endblock %}
-                </div>
-            </div>
-
-            <div class="tab-pane fade task-content" id="pills-tasks" role="tabpanel" aria-labelledby="pills-tasks-tab">
-                <div class='p-4 table-responsive'>
-                    <table class="table table-borderless table-hover">
-                        <thead>
-                            <tr>
-                                <th colspan="4" class="header-title">Tasks</th>
-                                <th style="text-align: right;"><button type="button" class="btn addBtn" data-toggle="modal" data-target="#addTask">+</button></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td onclick="window.location='TaskView.html'">Essay Writing</td>
-                                <td class="score" onclick="window.location='TaskView.html'">5/30</td>
-                                <td class="dueDate" onclick="window.location='TaskView.html'">Due: Jan 08,2021</td>
-                                <td class="createdDate" onclick="window.location='TaskView.html'">Created: Jan 01,2021</td>                                             
-                                <td><button type="button" data-toggle="modal" data-target="#deleteTask" class="deleteBtn">X</button></td>
-                            </tr>
-                            <tr>
-                                <td onclick="window.location='TaskView.html'">Quiz 1</td>
-                                <td class="score" onclick="window.location='TaskView.html'">10/30</td>
-                                <td class="dueDate" onclick="window.location='TaskView.html'">Due: Jan 08,2021</td>
-                                <td class="createdDate" onclick="window.location='TaskView.html'">Created: Jan 01,2021</td>
-                                <td><button type="button" data-toggle="modal" data-target="#deleteTask" class="deleteBtn">X</button></td>
-                            </tr>
-                        </tbody>
-                    </table>     
-                </div>  
-            </div>
-
-            <div class="tab-pane fade" id="pills-students" role="tabpanel" aria-labelledby="pills-students-tab">Sample Content</div>
-            <div class="tab-pane fade" id="pills-analytics" role="tabpanel" aria-labelledby="pills-analytics-tab">Sample Content</div>
-        </div>
+        {% block tab-content %}
+        {% endblock %}
+        
     </div>
 {% endblock %}
 
 {% block modals %}
     <!-- Task Modals -->
-    <div class='modal fade' id='deleteTask' role="dialog">
+    <!-- <div class='modal fade' id='deleteTask' role="dialog">
         <div class='modal-dialog'>
             <div class='modal-content'>
                 <form method = 'POST' > 
@@ -151,7 +107,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Modules Modals -->
     <!-- <div class='modal fade' id='addModules' role="dialog">

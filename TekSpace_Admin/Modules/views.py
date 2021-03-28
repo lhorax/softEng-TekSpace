@@ -10,7 +10,9 @@ from .forms import FilesForm
 
 # Create your views here.
 class ModulesView(View):
+    
     def get(self, request):
+        print(request.session.get('sid'))
         context = self.updateTemplate(request)
         return render(request, 'Modules/Session-Actions.html', context)
 
@@ -43,6 +45,9 @@ class ModulesView(View):
             if 'goToSessionsPageBtn' in request.POST:
                 return redirect("Sessions:index_view")
 
+            if 'task-tab' in request.POST:
+                print("fjfaksldfj")
+
             context = self.updateTemplate(request)
             return render(request, 'Modules/Session-Actions.html', context)
 
@@ -71,9 +76,10 @@ class ModulesView(View):
 
     def updateTemplate(self,request):
         modules = self.viewModules(request)
+        sid = request.session.get('sid')
         for mod in modules: 
             mod.files = File.getFiles(mod.mod_ID)
-        return {'modules': modules}
+        return {'modules': modules,'session_id': sid}
 
     
 

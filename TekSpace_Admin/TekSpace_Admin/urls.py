@@ -26,6 +26,7 @@ urlpatterns = [
     path('activity/', include('Activity.urls', namespace='activity')),
     path('socialnetwork/', include('Social_Network.urls', namespace='social_network')),
     path('modules/', include('Modules.urls', namespace='modules')),
+    path('tasks/', include('Tasks.urls', namespace='tasks')),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

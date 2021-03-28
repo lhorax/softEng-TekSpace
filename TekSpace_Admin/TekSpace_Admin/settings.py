@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'Activity',
     'Interest',
     'Modules',
+    'Tasks',
 ]
 
 MIDDLEWARE = [
