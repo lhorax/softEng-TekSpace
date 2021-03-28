@@ -192,7 +192,6 @@
                                             {% for ex in stud_task %}
                                             {% if ex.isGraded == False %}
                                             <tr>
-                                                <input type="text" name="exam_id" value="{{ex.student.student_id}}" hidden>
                                                 <input type="text" name="task_id" value="{{ task.task_id }}" hidden>
                                                 <td>{{ ex.student.user.first_name }} {{ ex.student.user.last_name }}</td>                                            
                                                 {% if ex.isSubmitted %}
@@ -225,6 +224,9 @@
                                             {% for ex in stud_task %}
                                             {% if ex.isGraded == True %}
                                             <tr>
+
+                                                <input type="text" name="exam_id" value="{{ex.sessions.session_name }}" hidden>
+                                                <input type="text" name="id_number" value="{{ ex.session.students.id_number }}" hidden>
                                                 <td>{{ ex.student.user.first_name }} {{ ex.student.user.last_name }}</td>
                                                 <td> 
                                                      <form method='GET' action="{% url 'Tasks:exam_details' ex.student.student_id %}">

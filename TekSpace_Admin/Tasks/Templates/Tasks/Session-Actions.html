@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block tabs %}
-<!--This is a comment test-->
     <li class="nav-item ">
         <a class="nav-link " id="module-tab" href="{% url 'Modules:index_view' %}">Modules</a>
     </li>
@@ -82,13 +81,13 @@
                     {% csrf_token %}
                     <div class='modal-body'>
                             <div class='form-group'>
-                                <input type='text' class='form-control' id='task_title' name='task_title' placeholder="Title" aria-describedby=''/*>
+                                <input type='text' class='form-control' id='task_title' name='task_title' placeholder="Task Title" aria-describedby=''/*>
                             </div>
                             <div class='form-group'>
-                                <textarea type='text' class='form-control' id='task_description' name='task_description' placeholder="Description" rows="5" aria-describedby=''></textarea>
+                                <textarea type='text' class='form-control' id='task_description' name='task_description' placeholder="Task Description" rows="5" aria-describedby=''></textarea>
                             </div>
                             <div class='form-group'>
-                                <input type='text' class='form-control' id='task_totalScore' name='task_totalScore' placeholder="Total Score" aria-describedby=''/*>
+                                <input type='text' class='form-control' id='task_totalScore' name='task_totalScore' placeholder="Task Total Score" aria-describedby=''/*>
                             </div>
                             <div class='form-group'>
                                 <span class='row'>

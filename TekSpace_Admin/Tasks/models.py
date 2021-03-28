@@ -18,8 +18,8 @@ class Tasks(models.Model):
 	task_filename = models.CharField(max_length=50, null=True)
 	sessions = models.ForeignKey(Session, on_delete=models.CASCADE, null=True)
 
-	def getTasks():
-		return Tasks.objects.all()
+	def getTasks(sid):
+		return Tasks.objects.filter(sessions_id=sid)
     
 	def addTask(task_title, task_description, task_totalScore, task_dateDue, task_dueTime, task_file, task_filename, session):
 		new_task = Tasks()
@@ -51,9 +51,10 @@ class Student_Session_Task(models.Model):
 	isGraded = models.BooleanField(default = False)
 	dateSubmitted = models.DateField(default=datetime.date.today)
 	task = models.ForeignKey(Tasks, on_delete=models.CASCADE)
+	session = models.ForeignKey(Session, on_delete=models.CASCADE, null=True)
 
-	def getExamine():
-		return Student_Session_Task.objects.all()
+	def getExamine(sid):
+		return Student_Session_Task.objects.filter(sessions_id=sid)
 
 	def addExamine(feedback, file, filename, actualScore, isSubmitted):
 		new_exam = Student_Session_Task()

@@ -39,7 +39,7 @@ class TaskListView(View):
 
 	def viewTask(self, request):
 		sid = request.session.get('sid')
-		return Tasks.getTasks()
+		return Tasks.getTasks(sid)
 
 	def createTask(self, request):
 		task_title = request.POST.get('task_title')
@@ -78,6 +78,8 @@ class TaskListView(View):
 
 class TaskView(View):
 	def get(self, request, id):
+		sid = request.session.get('sid')
+		print(sid)
 		student = Student.objects.all()
 		task = Tasks.objects.get(task_id = id)
 		student_count = Student.objects.filter().count()
