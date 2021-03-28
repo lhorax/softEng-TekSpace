@@ -1,0 +1,151 @@
+{% extends 'session_actions_base.html' %}
+{% load static %}
+
+{% block tabs %}
+    <li class="nav-item ">
+        <a class="nav-link active" id="module-tab" data-toggle="pill" href="#pills-modules" role="tab" aria-controls="pills-modules" aria-selected="true">Modules</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="task-tab" data-toggle="pill" href="#pills-tasks" role="tab" aria-controls="pills-tasks" aria-selected="false">Tasks</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="student-tab" data-toggle="pill" href="#pills-students" role="tab" aria-controls="pills-students" aria-selected="false">Students</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="analytics-tab" data-toggle="pill" href="#pills-analytics" role="tab" aria-controls="pills-analytics" aria-selected="false">Analytics</a>
+    </li>
+{% endblock %}
+
+
+{% block module %}
+    <div class='p-3 table-responsive'>
+        {% for module in modules%}
+        <table class="table table-borderless table-hover">
+            <thead>
+                <tr>
+                    <th colspan="4" class="header-title" >{{module.modulename}}</th>
+                    <th style="text-align: right;" class="dropdown">
+                        <button type="button" class="btn btnHead" data-toggle="dropdown" role="button" data-toggle="dropdown">...</button>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                            <button class = "dropdown-item"  data-toggle="modal" data-target="#addFile-{{module.mod_ID}}">Add File</button>
+                        <form method='POST'>
+                            {% csrf_token %}
+                            <span class="dropdown-item" data-title='DeleteModules' data-toggle='modal' data-target='#deleteModules-{{module.mod_ID}}'>
+                                <a data-placement='top' data-toggle='tooltip' title='Delete Modules' type='button'>Delete Module</a>
+                            </span>
+                        </form>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in module.files %}
+                <tr>
+                    <td colspan="4" style="text-indent: 25px;"><a class="file_links" href="{{file.files.url}}" target="_blank"> {{file.files}} </a></td>
+                    <td class="text-right"><button type="button" data-toggle="modal" data-target="#deleteFile-{{file.id}}" class="deleteBtn">X</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>   
+        {% endfor %}
+    </div> 
+{% endblock %}
+
+
+{% block modals %}
+    <!-- Modules Modals -->
+    <div class='modal fade' id='addModules' role="dialog">
+        <div class='modal-dialog'>
+            <div class='modal-content'>
+                <div class="modal-header justify-content-center">
+                    <h4 class="modal-title">Add a Module</h4>
+                </div>
+                <form method='POST' action="{% url 'Modules:index_view' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class='modal-body'>
+                            <div class='form-group'>
+                                <input type='text' class='form-control' name='modulename' placeholder="Module Name" aria-describedby=''>
+                            </div>
+                            <!-- <div class='form-group'>
+                                <input type="file" name="files" accept=".pdf">
+                            </div> -->
+                    </div>                    
+                    <div class='modal-footer'>
+                        <button type='submit' name='addModulesBtn' class='btn modalYesBtn'>Add</button>
+                        <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% for module in modules %}
+        <div class='modal fade' id='deleteModules-{{module.mod_ID}}' role="dialog">
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <form method = 'POST' action="{% url 'Modules:index_view' %}"> 
+                        {% csrf_token %}
+                        <input type="text" name="mod_ID" value="{{module.mod_ID}}" hidden>
+                        <div class='modal-body'>
+                            <div class='deleteWarning'>Are you sure you want to delete this Module?</div>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='submit' name='deleteModulesBtn' class='btn modalYesBtn'>Yes</button>
+                            <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class='modal fade' id='addFile-{{module.mod_ID}}' role="dialog">
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <div class="modal-header justify-content-center">
+                        <h4 class="modal-title">Add a Document</h4>
+                    </div>
+                    <form method='POST' class="form-group" action="{% url 'Modules:index_view' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class='modal-body text-center'>
+                            <br>                    
+                            <div class='form-group'>
+                                <input type="text" name="module_id" value="{{module.mod_ID}}" hidden>
+                                <input type="file" name="files" accept=".pdf">
+                            </div>
+                        </div>                    
+                        <div class='modal-footer'>
+                            <button type='submit' name='addFileBtn' class='btn modalYesBtn'>Add</button>
+                            <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                        </div>
+                    </div>  
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {% for files in module.files%}
+            <div class='modal fade' id='deleteFile-{{files.id}}' role="dialog">
+                <div class='modal-dialog'>
+                    <div class='modal-content'>
+                        <form method = 'POST' action="{% url 'Modules:index_view' %}"> 
+                            {% csrf_token %}
+                            <input type="text" name="fileID" value="{{files.id}}" hidden>
+                            <div class='modal-body'>
+                                <div class='deleteWarning'>Are you sure you want to delete this File?</div>
+                            </div>
+                            <div class='modal-footer'>
+                                <button type='submit' name='deleteFileBtn' class='btn modalYesBtn'>Yes</button>
+                                <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    {% endfor %}
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

@@ -1,0 +1,9 @@
+body {
+    /* Set "my-sec-counter" to 0 */
+    counter-reset: my-sec-counter;
+}
+
+.session_no::before{
+    counter-increment: my-sec-counter;
+    content: counter(my-sec-counter);
+}
