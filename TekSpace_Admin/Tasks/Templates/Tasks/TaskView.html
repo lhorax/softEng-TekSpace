@@ -153,7 +153,7 @@
                     <div class="session-actions-container">
                         <div class="pt-2 pl-3">
                             <span>
-                                <h1 class='session-label'>Essay Writing</h1> 
+                                <h1 class='session-label'>{{ task.task_title }}</h1> 
                                 <form method="POST" action="{% url 'Tasks:index' %}">      
                                     {% csrf_token %}                             
                                     <button type="submit" class="btn backBtn" name="backBtn">Back</button>
