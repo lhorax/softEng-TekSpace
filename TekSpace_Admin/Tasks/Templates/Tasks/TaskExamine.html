@@ -1,0 +1,93 @@
+{% extends 'base.html'%}
+{% load static %}
+{%block extra_head %}
+<link href="{% static 'css/session-actions.css' %}" rel="stylesheet">
+<link href="{% static 'css/taskView.css' %}" rel="stylesheet">
+{% endblock %}
+{% block sidebar %}
+    <li class="nav-item ">
+        <a class="nav-link" href="">
+            <i class="fa fa-users"></i>
+            <span>Students</span>
+        </a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'Sessions:index_view' %}">
+            <i class="fas fa-bars"></i>
+            <span>Sessions</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'Social_Network:index_view' %}">
+            <i class="fas fa-project-diagram"></i>
+            <span>Social Network</span>
+        </a>
+    </li>
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Heading -->  
+    <div class="session-actions-container">
+        <div class="pt-2 pl-3">  
+            <form method="POST" action="{% url 'Tasks:view_task' stud_task.task_id %}">
+                {% csrf_token %}            
+                <span>
+                    <h1 class='session-label'>{{task.task_title}}</h1>                      
+                    <button type="submit" class="btn backBtn" name="backBtn">Back</button>
+                </span>       
+            </form>                     
+        </div>
+        <br>
+        <div class="task-details">
+            <div class="row pl-3 pr-3">
+                <div class="col taskDesc">                                    
+                    <div class="mx-auto">
+                        <div class="card">
+                            <div class="card-body">
+                                <input type="text" name="student_id" value="{{ stud_task.student.student_id }}" hidden>
+                                 <!-- <input type="text" name="task_id" value="{{ task.task_id }}" hidden> -->
+                                 {% if stud_task.filename == None %}
+                                <p class='card-text'>No uploaded file.</p>
+                                {% else %}
+                                <p class='card-text'><a href="{{stud_task.file.url}}" target="_blank"> {{ stud_task.filename }}</a></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vertical-line"></div>
+                <div class="col taskInfo">
+                    <div class="row">
+                        <div class="col text-center">
+                            <span>
+                                <img class="profile-img" src="{% static 'images/placeholder.png' %}" alt="profile image">
+                                <h5>{{ stud_task.student.user.first_name}} {{ stud_task.student.user.last_name}}</h5>
+                            </span>
+                        </div>
+                    </div>       
+                    <form method="POST" action="{% url 'Tasks:exam_details' stud_task.student_id %}">
+                        {% csrf_token %}                             
+                        <div class="col">
+                            <h5>Feedback</h5>                            
+                            <div class="form-group">
+                                <textarea class='form-control' value="{{ stud_task.feedback }}" id="feedback" name='feedback' rows="5">{{ stud_task.feedback }}</textarea>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h5>Score</h5>
+                            <div class="form-group">
+                                <input type='text' value="{{ stud_task.actualScore }}" class='form-control' id='actualScore' name='actualScore' aria-describedby='' required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                    <button type='submit' class='btn closeBtn' name="updateBtn">Return Work</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>   
+</div>
+{% endblock %}

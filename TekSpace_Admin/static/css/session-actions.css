@@ -1,0 +1,210 @@
+.session-actions-container{
+    background: #ffffff;
+    border: 1px solid #000000;
+    box-shadow: 0px 0px 4px 4px rgba(97, 10, 12, 0.3);
+    border-radius: 10px;
+    height: 600px;
+}
+
+.session-label{
+    color: #610A0C;
+    font-size: 35px;
+    display: inline-block;
+}
+
+.task-action .nav-pills{
+    background: #FFFFFF;
+    border-bottom: 1px solid #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.task-action .nav-pills .nav-link{
+    color: #000000;
+    background-color: transparent;
+}
+
+.task-action .nav-pills .nav-link.active{
+    color: #ffffff;
+    background-color: #610A0C;
+}
+
+.addBtn{
+    background-color: #f8c400;
+    border: none;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    font-weight: 20px;
+    text-align: center;
+    float: right;
+    margin: 0px 10px;
+}
+
+.addBtn:hover{
+    color: #610A0C;
+}
+
+.deleteBtn{
+    color: #F8C400;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.backBtn{
+    background-color: #F8C400;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-weight: 20px;
+    text-align: center;
+    float: right;
+    margin: 0px 15px;
+}
+
+.backBtn:hover{
+    color: #610A0C;
+}
+
+.closeBtn{
+    background-color: #610A0C;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-weight: 20px;
+    text-align: center;
+}
+
+.closeBtn:hover{
+    color: #F8C400;
+}
+
+/* Tasks */
+.task-content{
+    max-height: 400px;
+    height: 100%;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+/* Scrollbar */
+.task-content::-webkit-scrollbar {
+    width: 10px;         
+}
+
+/* Track */
+.task-content::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px;
+}
+
+/* Handle */
+.task-content::-webkit-scrollbar-thumb {
+    background: rgba(97, 10, 12, 0.53);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.task-content::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+#pills-tasks table, #pills-modules table{
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+#pills-tasks thead, #pills-modules thead{
+    background: #F7F7F7;
+}
+
+#pills-tasks .header-title, #pills-modules .header-title{
+    color: #000000;
+    font-size: 25px;
+}
+
+#pills-tasks td{
+    width: 10%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#pills-modules td{
+    vertical-align: middle;
+}
+
+#score{
+    color: #E5383B;
+}
+
+#pills-tasks .dueDate{
+    color: #E5383B;
+    font-weight: bold;
+}
+
+#pills-tasks .createdDate{
+    color: #38E573;
+}
+
+.task-details{
+    cursor: pointer;
+}
+
+
+/* Modules */
+.module-content{
+    max-height: 450px;
+    height: 100%;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+/* Scrollbar */
+.module-content::-webkit-scrollbar {
+    width: 10px;         
+}
+
+/* Track */
+.module-content::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px;
+}
+
+/* Handle */
+.module-content::-webkit-scrollbar-thumb {
+    background: rgba(97, 10, 12, 0.53);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.module-content::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.addSectionBtn{
+    color:white;
+    background-color: #610a0c;
+    float: left;
+}
+
+.addSectionBtn:hover{
+    color:#610a0c;
+    background-color: white;
+    border: 1px solid #610a0c;
+}
+
+.btnHead{
+    font-weight: bold; 
+    color: #610A0C;
+    font-size: 20px;
+}
+
+.file_links{
+    text-decoration: none;
+    color: #000000;
+    font-size: 15px;
+}

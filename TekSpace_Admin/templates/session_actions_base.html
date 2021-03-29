@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Session Actions - {% endblock %}
+
+{% block extra_head %}
+    <link href="{% static 'css/modals.css' %}" rel="stylesheet">
+    <link href="{% static 'css/session-actions.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block sidebar %}
+    <li class="nav-item ">
+        <a class="nav-link" href="">
+            <i class="fa fa-users"></i>
+            <span>Students</span>
+        </a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'Sessions:index_view' %}">
+            <i class="fas fa-bars"></i>
+            <span>Sessions</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'Social_Network:index_view' %}">
+            <i class="fas fa-project-diagram"></i>
+            <span>Social Network</span>
+        </a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <form method="POST">
+            {% csrf_token %}
+            <button style="color:white" id='backPageBtn' type="submit" name="goToSessionsPageBtn" class="btn btn-warning">Go back</button>
+        </form>
+        <h1 class="mx-auto" style = "color: #610a0c"><b>{% block title_header %}{% endblock %}</b></h1>
+    </div>
+
+    <div class="session-actions-container task-action">
+        <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
+            {% block tabs %}
+            {% endblock %}
+        </ul>
+
+        {% block tab-content %}
+        {% endblock %}
+        
+    </div>
+{% endblock %}
+
+{% block modals %}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
