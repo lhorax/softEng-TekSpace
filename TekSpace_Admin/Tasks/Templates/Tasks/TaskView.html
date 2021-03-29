@@ -30,19 +30,19 @@
     <!-- Page Heading -->     
     <div class="session-actions-container">
         <div class="pt-2 pl-3">
-            <span>
-                <h1 class='session-label'>{{ task.task_title }}</h1> 
-                <form method="POST" action="{% url 'Tasks:index' %}">      
-                    {% csrf_token %}                             
-                    <button type="submit" class="btn backBtn" name="backBtn">Back</button>
-                </form>
-            </span>                            
+            <form method="POST" action="{% url 'Tasks:index' %}">      
+                {% csrf_token %}                      
+                <span>
+                    <h1 class='session-label'>{{ task.task_title }}</h1>        
+                        <button type="submit" class="btn backBtn" name="backBtn">Back</button>
+                </span>                      
+            </form>      
         </div>
         <br>
         <div class="task-container">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                    <form method='POST'>
+                    <form method='POST' action="{% url 'Tasks:view_details' task.task_id %}">
                         {% csrf_token %}
                         <button type="submit" style="display: contents;" name="view_detailsBtn">
                             <a class="nav-link" id="detailsTab" type="submit">details</a>
@@ -81,7 +81,7 @@
                                 <td> 
                                     <form method='GET' action="{% url 'Tasks:exam_details' ex.student.student_id %}">
                                         {% csrf_token %}
-                                        <button type="submit" class="taskIcon"><a href="{% url 'Tasks:exam_details' ex.student.student_id %}"><i class="fas fa-clipboard-check fa-2x"></i></a></button>
+                                        <button type="submit" class="taskIcon"><i class="fas fa-clipboard-check fa-2x"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -109,7 +109,7 @@
                                 <td> 
                                      <form method='GET' action="{% url 'Tasks:exam_details' ex.student.student_id %}">
                                         {% csrf_token %}
-                                        <button type="submit" class="taskIcon"><a href="{% url 'Tasks:exam_details' ex.student.student_id %}"><i class="fas fa-clipboard-check fa-2x"></i></a></button>
+                                        <button type="submit" class="taskIcon"><i class="fas fa-clipboard-check fa-2x"></i></button>
                                     </form>
                                 </td>
                                 <td>

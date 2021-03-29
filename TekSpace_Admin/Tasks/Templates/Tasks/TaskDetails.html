@@ -29,13 +29,13 @@
     <!-- Page Heading -->       
     <div class="session-actions-container">
         <div class="pt-2 pl-3">
-            <span>
-                <h1 class='session-label'>Essay Writing</h1>   
-                <form method='POST' action = "{% url 'Tasks:view_task' task.task_id %}">
-                {% csrf_token %}                                 
-                <button type="submit" class="btn backBtn" name="backBtn">Back</button>
-            </form>
-            </span>                            
+            <form method='POST' action = "{% url 'Tasks:view_task' task.task_id %}">
+                {% csrf_token %}                            
+                <span>
+                    <h1 class='session-label'>{{task.task_title}}</h1>        
+                    <button type="submit" class="btn backBtn" name="backBtn">Back</button>
+                </span>       
+            </form>                     
         </div>
         <br>
         <div class="task-details">

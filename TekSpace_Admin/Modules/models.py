@@ -29,7 +29,7 @@ class Module(models.Model) :
         query.delete()
 
     class Meta:
-        db_table = "modules"
+        db_table = "Modules"
 
 class File(models.Model):
     files = models.FileField(validators=[FileExtensionValidator(allowed_extensions=['pdf'])])
@@ -49,7 +49,7 @@ class File(models.Model):
         query.delete()
 
     class Meta:
-        db_table = "files"
+        db_table = "Files"
 
 
 

@@ -9,8 +9,8 @@ from .forms import *
 from .models import *
 # Create your views here.
 
-class TaskListView(View):
-	def get(self, request):
+class TaskView(View):
+	def get(self, request):		
 		context = self.updateTemplate(request)
 		return render(request, 'Tasks/Session-Actions.html', context)
 
@@ -37,7 +37,7 @@ class TaskListView(View):
 			context = self.updateTemplate(request)
 			return render(request, 'Tasks/Session-Actions.html', context)
 
-	def viewTask(self, request):
+	def viewTasks(self, request):	
 		sid = request.session.get('sid')
 		return Tasks.getTasks(sid)
 
@@ -52,6 +52,12 @@ class TaskListView(View):
 		sid = request.session.get('sid')
 		session = Session.getSession(sid)
 		Tasks.addTask(task_title, task_description, task_totalScore, task_dateDue, task_dueTime, task_file, task_filename, session)
+		
+		# automatically add students in the Student_Session_Task table
+		task = Tasks.getLatestTask()
+		students = session.students.all()
+		for student in students:
+			Student_Session_Task.addStudentExam(student, task, session)
 
 	#def addTaskFile(self, request):
 	#	task_id = request.POST.get('task_id')
@@ -60,31 +66,28 @@ class TaskListView(View):
 	#	file = form.cleaned_data["file"]
 	#	File.createTaskFile(task_id, file, filename)
 
-
 	def deleteTask(self, request):
 		sid = request.POST.get("task_id")
-		print(sid)
 		Tasks.removeTask(sid)
 
 	def updateTemplate(self, request):
 		student = Student.objects.all()
-		return {'Tasks' : self.viewTask(request),
+		sid = request.session.get('sid')
+		session = Session.getSession(sid)
+		return {
+			'Tasks' : self.viewTasks(request),
 			'student':student,
+			'session' : session,
 		}
 
-
-	def goToSessionActionsPage(self):
-		pass
-
-class TaskView(View):
-	def get(self, request, id):
+	# former class TaskView
+	def viewSpecificTask(request, id):
 		sid = request.session.get('sid')
-		print(sid)
+		request.session['tid'] = id
 		student = Student.objects.all()
-		task = Tasks.objects.get(task_id = id)
+		task = Tasks.getSpecificTask(id)
 		student_count = Student.objects.filter().count()
 		stud_task = Student_Session_Task.objects.filter(task_id = id)
-
 		context = {
 			'task': task,
 			'student': student,
@@ -93,108 +96,36 @@ class TaskView(View):
 		}
 		context['to_grade'] = Student_Session_Task.objects.filter(isGraded=0, task_id = id).count()
 		context['graded'] = Student_Session_Task.objects.filter(isGraded=1, task_id = id).count()
-		print("50")
-		print(context)
 		return render(request, 'Tasks/TaskView.html',context)
 
-	def post(self, request, id):
-		if request.method == 'POST':
-			if 'view_detailsBtn' in request.POST:
-				context = self.view_details(request, id)
-				print(context)
-				# request.session['context']=context
-				# print (context)
-				return redirect('Tasks:view_details', id)
-
-			if 'backBtn' in request.POST:
-				return redirect("Tasks:view_task", id)
-
-			# update template here
-			task = Tasks.objects.get(task_id = id)
-			context = {
-				'task': task,
-			}
-			return render(request, 'Tasks/TaskView.html',context)
-	
-	def view_details(self, request, id):
-		task = Tasks.objects.get(task_id = id)
+	# former class TaskDetails
+	def viewDetails(request, id):
+		task = Tasks.getSpecificTask(id)
 		context = {
 			'task': task
 		}
-		return context
-
-	def exam_details(self, request, id):
-		#eid = request.session.get('task_id')
-		#print(eid)
-		print("51")
-		stud_task = Student_Session_Task.objects.filter(task_id = id)
-		context = {
-			'stud_task': stud_task,
-		}
-		return render(request, 'Tasks/TaskExamine.html',context)
-
-class TaskDetails(View):
-	def get(self, request, id):
-		task = Tasks.objects.get(task_id = id)
-		context = {
-			'task': task
-		}
-		#context = request.session.get('context')
-		print(context)
 		return render(request, 'Tasks/TaskDetails.html', context)
+	
+	# former class TaskExamine
+	def examDetails(request, student_id):
+		tid = request.session.get('tid')
+		if request.method == 'GET':
+			task = Tasks.getSpecificTask(tid)
+			stud_task = Student_Session_Task.getExam(student_id, tid)
+			context = {
+				'stud_task': stud_task,
+				'task': task
+			}
+			return render(request, 'Tasks/TaskExamine.html', context)
 
-	def task_details(self, request, id):
-		task = Tasks.objects.get(task_id = id)
-		context = {
-			'task': task
-		}
-		return context
-
-	def post(self, request, id):
-		if 'closeBtn' in request.POST:
-			return redirect("Tasks:view_task", id)
-
-		if 'backBtn' in request.POST:
-			return redirect("Tasks:view_task", id)
-
-
-class TaskExamine(View):
-	def get(self, request, student_id):
-		#task = Tasks.objects.get(task_id = id1)
-		stud_task = Student_Session_Task.objects.get(student_id = student_id)
-		context = {
-			#'task' : task,
-			'stud_task': stud_task,
-		}
-
-		print("52")
-		print(context)
-		return render(request, 'Tasks/TaskExamine.html',context)
-
-	def exam_details(self, request, student_id):
-		stud_task = Student_Session_Task.objects.filter(student_id = student_id)
-		context = {
-			#'task' : task,
-			'stud_task': stud_task,
-		}
-		print("53")
-		print(context)
-		return context
-
-	def post(self, request, student_id):
 		if request.method == 'POST':
-			if 'backBtn' in request.POST:
-				stud_task = Student_Session_Task.objects.get(student_id = student_id)
-				return redirect('Tasks:view_task', stud_task.task_id)
-
 			if 'updateBtn' in request.POST:
-				stud_task = Student_Session_Task.objects.get(student_id = student_id)
+				stud_task = Student_Session_Task.getExam(student_id, tid)
 				form = UpdateForm(request.POST, instance=stud_task)
 				if form.is_valid():
 					print("hello")
 					feedback = request.POST.get('feedback')
 					score = request.POST.get('actualScore')
-
 					Student_Session_Task.updateExam(student_id, feedback, score)
 					messages.success(request, ("Evaluated Successfully"))
 					return redirect('Tasks:view_task', stud_task.task_id)
@@ -202,3 +133,122 @@ class TaskExamine(View):
 					print(form.errors)
 					messages.success(request, ("Sorry, there was an error during evaluation"))
 			return redirect('Tasks:exam_details', student_id)
+
+# class TaskView(View):
+# 	def get(self, request, id):
+# 		sid = request.session.get('sid')
+# 		student = Student.objects.all()
+# 		task = Tasks.objects.get(task_id = id)
+# 		student_count = Student.objects.filter().count()
+# 		stud_task = Student_Session_Task.objects.filter(task_id = id)
+
+# 		context = {
+# 			'task': task,
+# 			'student': student,
+# 			'student_count': student_count,
+# 			'stud_task': stud_task,
+# 		}
+# 		context['to_grade'] = Student_Session_Task.objects.filter(isGraded=0, task_id = id).count()
+# 		context['graded'] = Student_Session_Task.objects.filter(isGraded=1, task_id = id).count()
+# 		return render(request, 'Tasks/TaskView.html',context)
+
+# 	def post(self, request, id):
+# 		if request.method == 'POST':
+# 			if 'view_detailsBtn' in request.POST:
+# 				context = self.view_details(request, id)
+# 				print(context)
+# 				# request.session['context']=context
+# 				# print (context)
+# 				return redirect('Tasks:view_details', id)
+
+# 			if 'backBtn' in request.POST:
+# 				return redirect("Tasks:view_task", id)
+
+# 			# update template here
+# 			task = Tasks.objects.get(task_id = id)
+# 			context = {
+# 				'task': task,
+# 			}
+# 			return render(request, 'Tasks/TaskView.html',context)
+	
+# 	def view_details(self, request, id):
+# 		task = Tasks.objects.get(task_id = id)
+# 		context = {
+# 			'task': task
+# 		}
+# 		return context
+
+# 	def exam_details(request, id):
+# 		print("51")
+# 		stud_task = Student_Session_Task.objects.filter(task_id = id)
+# 		context = {
+# 			'stud_task': stud_task,
+# 		}
+# 		return render(request, 'Tasks/TaskExamine.html',context)
+
+# class TaskDetails(View):
+# 	def get(self, request, id):
+# 		task = Tasks.objects.get(task_id = id)
+# 		context = {
+# 			'task': task
+# 		}
+# 		#context = request.session.get('context')
+# 		print(context)
+# 		return render(request, 'Tasks/TaskDetails.html', context)
+
+# 	def task_details(self, request, id):
+# 		task = Tasks.objects.get(task_id = id)
+# 		context = {
+# 			'task': task
+# 		}
+# 		return context
+
+# 	def post(self, request, id):
+# 		if 'closeBtn' in request.POST:
+# 			return redirect("Tasks:view_task", id)
+
+		# if 'backBtn' in request.POST:
+		# 	return redirect("Tasks:view_task", id)
+
+
+# class TaskExamine(View):
+# 	def get(self, request, student_id):
+# 		#task = Tasks.objects.get(task_id = id1)
+# 		stud_task = Student_Session_Task.objects.get(student_id = student_id)
+# 		context = {
+# 			#'task' : task,
+# 			'stud_task': stud_task,
+# 		}
+# 		return render(request, 'Tasks/TaskExamine.html',context)
+
+# 	def exam_details(self, request, student_id):
+# 		stud_task = Student_Session_Task.objects.filter(student_id = student_id)
+# 		context = {
+# 			#'task' : task,
+# 			'stud_task': stud_task,
+# 		}
+# 		print("53")
+# 		print(context)
+# 		return context
+
+# 	def post(self, request, student_id):
+# 		if request.method == 'POST':
+# 			if 'backBtn' in request.POST:
+# 				stud_task = Student_Session_Task.objects.get(student_id = student_id)
+# 				return redirect('Tasks:view_task', stud_task.task_id)
+
+# 			if 'updateBtn' in request.POST:
+# 				stud_task = Student_Session_Task.objects.get(student_id = student_id)
+# 				form = UpdateForm(request.POST, instance=stud_task)
+# 				if form.is_valid():
+# 					print("hello")
+# 					feedback = request.POST.get('feedback')
+# 					score = request.POST.get('actualScore')
+
+# 					Student_Session_Task.updateExam(student_id, feedback, score)
+# 					messages.success(request, ("Evaluated Successfully"))
+# 					return redirect('Tasks:view_task', stud_task.task_id)
+# 				else:
+# 					print(form.errors)
+# 					messages.success(request, ("Sorry, there was an error during evaluation"))
+# 			return redirect('Tasks:exam_details', student_id)

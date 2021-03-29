@@ -18,8 +18,14 @@ class Tasks(models.Model):
 	task_filename = models.CharField(max_length=50, null=True)
 	sessions = models.ForeignKey(Session, on_delete=models.CASCADE, null=True)
 
+	def getLatestTask():
+		return Tasks.objects.latest('task_id')
+
 	def getTasks(sid):
 		return Tasks.objects.filter(sessions_id=sid)
+
+	def getSpecificTask(tid):
+		return Tasks.objects.get(task_id=tid)
     
 	def addTask(task_title, task_description, task_totalScore, task_dateDue, task_dueTime, task_file, task_filename, session):
 		new_task = Tasks()
@@ -56,17 +62,24 @@ class Student_Session_Task(models.Model):
 	def getExamine(sid):
 		return Student_Session_Task.objects.filter(sessions_id=sid)
 
-	def addExamine(feedback, file, filename, actualScore, isSubmitted):
-		new_exam = Student_Session_Task()
-		new_exam.feedback = feedback
-		new_exam.file = file
-		new_exam.filename = filename
-		new_exam.actualScore = actualScore
-		new_exam.isSubmitted = isSubmitted
-		new_task.save()
+	# def addExamine(feedback, file, filename, actualScore, isSubmitted):
+	# 	new_exam = Student_Session_Task()
+	# 	new_exam.feedback = feedback
+	# 	new_exam.file = file
+	# 	new_exam.filename = filename
+	# 	new_exam.actualScore = actualScore
+	# 	new_exam.isSubmitted = isSubmitted
+	# 	new_task.save()
 
-	def getExam(student_id):
-		return Student_Session_Task.objects.get(student_id = student_id)
+	def addStudentExam(student, task, session):
+		new_exam = Student_Session_Task()
+		new_exam.student = student
+		new_exam.task = task
+		new_exam.session = session
+		new_exam.save()
+
+	def getExam(student_id, task_id):
+		return Student_Session_Task.objects.get(student_id = student_id, task_id=task_id)
 
 	def updateExam(student_id, feedback, actualScore):
 		examine = Student_Session_Task.objects.filter(student_id = student_id).update(feedback = feedback, actualScore = actualScore, isGraded = True)

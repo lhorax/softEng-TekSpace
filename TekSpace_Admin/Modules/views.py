@@ -62,8 +62,7 @@ class ModulesView(View):
         files = form.cleaned_data["files"]
         File.createFiles(modID, files)
 
-    def viewModules(self,request):
-        sid = request.session.get('sid')
+    def viewModules(self,sid):
         return Module.getModules(sid)
     
     def deleteModules(self, request):
@@ -75,11 +74,12 @@ class ModulesView(View):
         File.removeFiles(fid)
 
     def updateTemplate(self,request):
-        modules = self.viewModules(request)
         sid = request.session.get('sid')
+        session = Session.getSession(sid)
+        modules = self.viewModules(sid)
         for mod in modules: 
             mod.files = File.getFiles(mod.mod_ID)
-        return {'modules': modules,'session_id': sid}
+        return {'modules': modules, 'session': session }
 
     
 
