@@ -33,7 +33,7 @@
                         <td class="clickable-row" data-href = "{% url 'Tasks:view_task' task.task_id %}">{{ task.task_title }}</td>
                         <td class="score" >{{ student.count }}</td>
                         <td class="dueDate">Due: {{ task.task_dateDue|date:"M d, Y" }}</td>
-                        <td class="createdDate">Created: {{ task.task_dateCreated|date:"M d, Y" }}</td>                                             
+                        <td class="createdDate">Created: {{ task.task_dateCreated|date:"M d, Y" }}</td>
                         <td>
                             <form method='POST' action = "{% url 'Tasks:index' %}">
                             {% csrf_token %}
@@ -44,7 +44,7 @@
 
                     {% endfor %}
                 </tbody>
-            </table>   
+            </table>
         </div>
     </div>
 {% endblock %}
@@ -57,7 +57,7 @@
                 <div class='modal-content'>
                     <form method='POST' action = "{% url 'Tasks:index' %}">
                         {% csrf_token %}
-                        <input type="text" name="task_id" value="{{task.task_id}}" hidden> 
+                        <input type="text" name="task_id" value="{{task.task_id}}" hidden>
                         <div class='modal-body'>
                             <div class='deleteWarning'>Are you sure you want to delete this Task?</div>
                         </div>
@@ -81,32 +81,32 @@
                     {% csrf_token %}
                     <div class='modal-body'>
                             <div class='form-group'>
-                                <input type='text' class='form-control' id='task_title' name='task_title' placeholder="Task Title" aria-describedby=''/*>
+                                <input type='text' class='form-control' id='task_title' name='task_title' placeholder="Task Title" aria-describedby=''/* required>
                             </div>
                             <div class='form-group'>
-                                <textarea type='text' class='form-control' id='task_description' name='task_description' placeholder="Task Description" rows="5" aria-describedby=''></textarea>
+                                <textarea type='text' class='form-control' id='task_description' name='task_description' placeholder="Task Description" rows="5" aria-describedby='' required></textarea>
                             </div>
                             <div class='form-group'>
-                                <input type='text' class='form-control' id='task_totalScore' name='task_totalScore' placeholder="Task Total Score" aria-describedby=''/*>
+                                <input type='text' class='form-control' id='task_totalScore' name='task_totalScore' placeholder="Task Total Score" aria-describedby=''/* required>
                             </div>
                             <div class='form-group'>
                                 <span class='row'>
                                     <div class="col-lg">
-                                        <input type='date' class='form-control' id='task_dateDue' name='task_dateDue' placeholder="Date" aria-describedby=''>
-                                    </div>   
-                                    <div class="col-lg">
-                                        <input type='time' class='form-control' id='task_dueTime' name='task_dueTime' placeholder="Time" aria-describedby=''>
+                                        <input type='date' class='form-control' id='task_dateDue' name='task_dateDue' placeholder="Date" aria-describedby='' required>
                                     </div>
-                                </span>                                                             
+                                    <div class="col-lg">
+                                        <input type='time' class='form-control' id='task_dueTime' name='task_dueTime' placeholder="Time" aria-describedby='' required>
+                                    </div>
+                                </span>
                             </div>
                             <div class='form-group'>
                                 <label for="task_file" class='modalCustomFile' style="display: inline-block;">
-                                    Choose File                                 
+                                    Choose File
                                     <input type="file" id="task_file" name="task_file" accept="pdf" class='modalFileBtn'>
                                 </label>
                                 <p class="modalFileLabel" style="display: inline-block;">file.docs</p>
                             </div>
-                    </div>                    
+                    </div>
                     <div class='modal-footer'>
                         <button type='submit' name='addTaskBtn' class='btn modalYesBtn'>Add</button>
                         <button type='button' class='btn' data-dismiss='modal'>Close</button>

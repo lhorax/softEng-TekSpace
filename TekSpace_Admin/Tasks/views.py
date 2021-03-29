@@ -183,6 +183,10 @@ class TaskExamine(View):
 
 	def post(self, request, student_id):
 		if request.method == 'POST':
+			if 'backBtn' in request.POST:
+				stud_task = Student_Session_Task.objects.get(student_id = student_id)
+				return redirect('Tasks:view_task', stud_task.task_id)
+
 			if 'updateBtn' in request.POST:
 				stud_task = Student_Session_Task.objects.get(student_id = student_id)
 				form = UpdateForm(request.POST, instance=stud_task)
@@ -193,7 +197,7 @@ class TaskExamine(View):
 
 					Student_Session_Task.updateExam(student_id, feedback, score)
 					messages.success(request, ("Evaluated Successfully"))
-					return redirect('Tasks:exam_details', student_id)
+					return redirect('Tasks:view_task', stud_task.task_id)
 				else:
 					print(form.errors)
 					messages.success(request, ("Sorry, there was an error during evaluation"))
