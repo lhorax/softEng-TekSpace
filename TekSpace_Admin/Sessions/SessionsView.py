@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View
 from django.contrib import messages
-from .models import Session
-from .forms import SessionForm
+from .Session import Session
+from .SessionForm import SessionForm
 
 # Create your views here.
 class SessionsView(View):
@@ -15,17 +15,19 @@ class SessionsView(View):
             if 'addSessionBtn' in request.POST:
                 form = SessionForm(request.POST or None)
                 if form.is_valid():
-                    self.createSession(request)
+                    self.createSession(form)
                     messages.success(request, ("Session Successfully Added"))
                 else:
                     print(form.errors)
 
             if 'deleteSessionBtn' in request.POST:
-                self.deleteSession(request)
+                form = SessionForm(request.POST or None)
+                self.deleteSession(form)
                 messages.success(request, ("Session Successfully Deleted"))
 
             if 'viewSessionBtn' in request.POST:
-                self.goToSessionPage(request)
+                form = SessionForm(request.POST or None)
+                self.goToSessionPage(request, form)
                 return redirect("Modules:index_view")
 
             context = self.updateTemplate()
@@ -34,19 +36,19 @@ class SessionsView(View):
     def viewSessions(self):
         return Session.getSessions()
 
-    def createSession(self, request):
-        code = request.POST.get('session_code')
-        name = request.POST.get('session_name')
+    def createSession(self, form):
+        code = form.getSessionCode()
+        name = form.getSessionName()
         Session.addSession(code, name)
     
-    def deleteSession(self, request):
-        sid = request.POST.get("session_id")
+    def deleteSession(self, form):
+        sid = form.getSessionId()
         Session.removeSession(sid)
 
     def updateTemplate(self):
         return {'sessions' : self.viewSessions()}
 
-    def goToSessionPage(self, request):
-        sid = request.POST.get("session_id")
+    def goToSessionPage(self, request, form):
+        sid = form.getSessionId()
         request.session['sid'] = sid
     

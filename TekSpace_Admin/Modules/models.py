@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.files import File
 from django.core.validators import FileExtensionValidator
-from Sessions.models import Session
+from Sessions.Session import Session
 
 # Create your models here.
 class Module(models.Model) :

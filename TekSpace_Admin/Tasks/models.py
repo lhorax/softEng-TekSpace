@@ -1,7 +1,7 @@
 from django.db import models
 from Students .models import Student
 from Accounts .models import CustomUser
-from Sessions .models import Session
+from Sessions .Session import Session
 from django.core.validators import FileExtensionValidator
 import datetime
 

@@ -3,7 +3,7 @@ from django.views.generic import View
 from django.contrib import messages
 from django.core.files import File
 from django.http import FileResponse, Http404
-from Sessions.models import Session
+from Sessions.Session import Session
 from .models import Module, File
 from .forms import ModulesForm
 from .forms import FilesForm
