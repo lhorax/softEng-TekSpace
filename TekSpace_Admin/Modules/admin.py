@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Module, File
+from .Module import Module
+from .File import File
 
 
 # Register your models here.
