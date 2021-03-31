@@ -61,13 +61,15 @@
                                 <tr>
                                     <td class="session_no"></td>
                                     <td>{{ session.session_code }} {{ session.session_name }}</td>
-                                    <td class="text-center">
-                                        <form method='POST'>
-                                            {% csrf_token %}
-                                            <input type="text" name="session_id" value="{{session.session_id}}" hidden>
-                                            <span data-title='ViewSession'><button type='submit' name='viewSessionBtn' style='display:contents;'><a data-placement='top' data-toggle='tooltip' title='View Session' type='button'><i class='fa fa-eye' aria-hidden='true'></i></a></button></span>
-                                            <span data-title='DeleteSession' data-toggle='modal' data-target='#deleteSession-{{session.session_id}}'><a data-placement='top' data-toggle='tooltip' title='Delete Session' type='button'><i class='fas fa-trash-alt' aria-hidden='true'></i></a></span>
-                                        </form>
+                                    <td class="text-center">                                        
+                                        <span data-title='ViewSession'>
+                                            <form method='POST' action="{% url 'Sessions:scan_session' %}" style="display: contents;">
+                                                {% csrf_token %}
+                                                <input type="text" name="session_id" value="{{session.session_id}}" hidden>
+                                                <button type='submit' name='viewSessionBtn' style='display:contents;'><a data-placement='top' data-toggle='tooltip' title='View Session' type='button'><i class='fa fa-eye' aria-hidden='true'></i></a></button>
+                                            </form>
+                                        </span>                                        
+                                        <span data-title='DeleteSession' data-toggle='modal' data-target='#deleteSession-{{session.session_id}}'><a data-placement='top' data-toggle='tooltip' title='Delete Session' type='button'><i class='fas fa-trash-alt' aria-hidden='true'></i></a></span>                                        
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -95,7 +97,7 @@
                 <div class="modal-header justify-content-center">
                     <h4 class="modal-title">Add Session</h4>
                 </div>
-                <form method='POST' action = "{% url 'Sessions:index_view' %}">
+                <form method='POST' action = "{% url 'Sessions:create_session' %}">
                     {% csrf_token %}
                     <div class='modal-body'>
                             <div class='form-group'>
@@ -118,7 +120,7 @@
         <div class='modal fade' id='deleteSession-{{session.session_id}}' role="dialog">
             <div class='modal-dialog'>
                 <div class='modal-content'>
-                    <form method='POST' action = "{% url 'Sessions:index_view' %}">
+                    <form method='POST' action = "{% url 'Sessions:delete_session' %}">
                         {% csrf_token %}
                         <input type="text" name="session_id" value="{{session.session_id}}" hidden>
                         <div class='modal-body'>

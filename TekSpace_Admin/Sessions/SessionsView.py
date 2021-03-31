@@ -6,49 +6,42 @@ from .SessionForm import SessionForm
 
 # Create your views here.
 class SessionsView(View):
-    def get(self, request):
-        context = self.updateTemplate()
+       
+    def viewSessions(request):
+        context = {'sessions': Session.getSessions()}
         return render(request, 'Sessions/SessionsTemplate.html', context)
 
-    def post(self, request):
+    def createSession(request):
         if request.method == 'POST':
             if 'addSessionBtn' in request.POST:
                 form = SessionForm(request.POST or None)
                 if form.is_valid():
-                    self.createSession(form)
+                    code = form.getSessionCode()
+                    name = form.getSessionName()
+                    Session.addSession(code, name)
                     messages.success(request, ("Session Successfully Added"))
                 else:
                     print(form.errors)
-
+            
+            return redirect("Sessions:index_view")
+    
+    def deleteSession(request):
+        if request.method == 'POST':
             if 'deleteSessionBtn' in request.POST:
                 form = SessionForm(request.POST or None)
-                self.deleteSession(form)
-                messages.success(request, ("Session Successfully Deleted"))
+                sid = form.getSessionId()
+                Session.removeSession(sid)
+                messages.success(request, ("Session Successfully Deleted"))     
 
+            return redirect("Sessions:index_view")   
+
+    def goToSessionPage(request):
+        if request.method == 'POST':
             if 'viewSessionBtn' in request.POST:
                 form = SessionForm(request.POST or None)
-                self.goToSessionPage(request, form)
+                sid = form.getSessionId()
+                request.session['sid'] = sid
+
                 return redirect("Modules:index_view")
-
-            context = self.updateTemplate()
-            return render(request, 'Sessions/SessionsTemplate.html', context)
-    
-    def viewSessions(self):
-        return Session.getSessions()
-
-    def createSession(self, form):
-        code = form.getSessionCode()
-        name = form.getSessionName()
-        Session.addSession(code, name)
-    
-    def deleteSession(self, form):
-        sid = form.getSessionId()
-        Session.removeSession(sid)
-
-    def updateTemplate(self):
-        return {'sessions' : self.viewSessions()}
-
-    def goToSessionPage(self, request, form):
-        sid = form.getSessionId()
-        request.session['sid'] = sid
+        
     

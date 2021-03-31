@@ -12,7 +12,6 @@ from .forms import FilesForm
 class ModulesView(View):
     
     def get(self, request):
-        print(request.session.get('sid'))
         context = self.updateTemplate(request)
         return render(request, 'Modules/Session-Actions.html', context)
 
@@ -44,9 +43,6 @@ class ModulesView(View):
 
             if 'goToSessionsPageBtn' in request.POST:
                 return redirect("Sessions:index_view")
-
-            if 'task-tab' in request.POST:
-                print("fjfaksldfj")
 
             context = self.updateTemplate(request)
             return render(request, 'Modules/Session-Actions.html', context)
