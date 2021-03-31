@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.timezone import now
 from datetime import date
-from Interest.models import Interest
+from Interest.Interest import Interest
 
 
 # Create your models here.
@@ -18,42 +18,37 @@ class Activity(models.Model):
         db_table = "Activity"
     
     def addActivity(name, desc, venue, date, photo, interests):
-        # try:
-            new_act = Activity()
-            new_act.act_name = name
-            new_act.act_description = desc
-            new_act.act_venue = venue
-            new_act.act_date = date
-            if photo != '':
-                new_act.act_photo = photo
-            new_act.save()
+        new_act = Activity()
+        new_act.act_name = name
+        new_act.act_description = desc
+        new_act.act_venue = venue
+        new_act.act_date = date
+        if photo != '':
+            new_act.act_photo = photo
+        new_act.save()
 
-            for i in interests:
-                interest = Interest.objects.get(interest_id = i)
-                new_act.interests.add(interest)
-            # new_act.save()
-        # except Exception as e:
-            # print(e)
+        for i in interests:
+            interest = Interest.objects.get(interest_id = i)
+            new_act.interests.add(interest)
+
         
     def updateActivity(obj, name, desc, venue, date, photo, interests):
-        # try:
-            act = Activity.objects.get(act_name = obj)
-            act.act_name = name
-            act.act_description = desc
-            act.act_venue = venue
-            act.act_date = date
-            
-            if photo != '':
-                act.act_photo = photo
+        act = Activity.objects.get(act_name = obj)
+        act.act_name = name
+        act.act_description = desc
+        act.act_venue = venue
+        act.act_date = date
+        
+        if photo != '':
+            act.act_photo = photo
 
-            act.interests.clear()
+        act.interests.clear()
 
-            for i in interests:
-                interest = Interest.objects.get(interest_id = i)
-                act.interests.add(interest)
-            act.save()
-        # except Exception as e:
-            # print(e)
+        for i in interests:
+            interest = Interest.objects.get(interest_id = i)
+            act.interests.add(interest)
+        act.save()
+
  
     def deleteActivity(id):
         Activity.objects.get(activity_id = id).delete()

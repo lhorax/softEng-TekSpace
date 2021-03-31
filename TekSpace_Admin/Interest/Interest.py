@@ -24,16 +24,11 @@ class Interest(models.Model):
             print(e)
     
     def updateInterest(obj, name, description, photo):
-        # try:
-            if photo != '':
-                interest = Interest.objects.filter(int_name = obj).update(int_name = name, int_description = description, int_photo = photo)
-            else:
-                interest = Interest.objects.filter(int_name = obj).update(int_name = name, int_description = description)
-            # interest.save()
-            # return name
-        # except Exception as e:
-            # print(e)
-            # return obj
+        if photo != '':
+            interest = Interest.objects.filter(int_name = obj).update(int_name = name, int_description = description, int_photo = photo)
+        else:
+            interest = Interest.objects.filter(int_name = obj).update(int_name = name, int_description = description)
+
 
 
     def deleteInterest(id):

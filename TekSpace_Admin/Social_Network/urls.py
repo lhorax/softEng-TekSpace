@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
+from .SocialNetworkView import SocialNetworkView
 from django.conf.urls.static import static
 from django.conf import settings
 
 app_name = 'Social_Network'
 urlpatterns = [ 
-    path('', views.index, name="index_view"),
+    path('', SocialNetworkView.index, name="index_view"),
 ]
