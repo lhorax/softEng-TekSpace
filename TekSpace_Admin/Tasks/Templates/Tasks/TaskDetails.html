@@ -44,8 +44,13 @@
                     <div class="mx-auto">
                         <div class="card">
                             <div class="card-body">
+                                {% if task.task_file %}
+
+                                <p class='card-text'><a href="{{task.task_file.url}}" target="_blank"> {{ task.task_file }}</a></p>
                                 <!-- <input type="text" name="task_id" value="{{task.task_id}}" hidden> -->
-                                <p class='card-text'><a class="file_links" href="{{ task.task_file.url }}" target="_blank">{{ task.task_file }}</a></p>
+                                {% else %}
+                                <p class='card-text'>No File Attached.</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

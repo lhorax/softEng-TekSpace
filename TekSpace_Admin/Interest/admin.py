@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .Interest import Interest
+from .models import *
 
 # Register your models here.
 admin.site.register(Interest)

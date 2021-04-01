@@ -31,7 +31,7 @@
 
 {% block content %}
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <form method="POST">
+        <form method="POST" action="{% url 'Sessions:index_view' %}">
             {% csrf_token %}
             <button style="color:white" id='backPageBtn' type="submit" name="goToSessionsPageBtn" class="btn btn-warning">Go back</button>
         </form>

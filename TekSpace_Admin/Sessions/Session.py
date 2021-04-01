@@ -1,5 +1,5 @@
 from django.db import models
-from Students.models import Student
+from Students.Student import Student
 
 # Create your models here.
 class Session(models.Model):
