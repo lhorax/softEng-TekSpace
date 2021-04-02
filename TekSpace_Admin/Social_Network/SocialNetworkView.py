@@ -8,10 +8,10 @@ from django.views.generic import View
 # Create your views here.
 class SocialNetworkView(View):
     def index(request):
-        interest_list = Interest.objects.all
-        today_activity = Activity.objects.filter(act_date__date = date.today())
-        past_activity = Activity.objects.filter(act_date__date__lt = date.today())
-        future_activity = Activity.objects.filter(act_date__date__gt = date.today())
+        interest_list = Interest.getInterestList()
+        today_activity = Activity.getTodayActivities()
+        past_activity = Activity.getPastActivities()
+        future_activity = Activity.getFutureActivities()
 
         context = {
             'interests':interest_list,

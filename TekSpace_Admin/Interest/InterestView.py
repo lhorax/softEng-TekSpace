@@ -18,7 +18,7 @@ class InterestView(View):
                     desc = form.getDescription()
                     photo = ''
                     if request.FILES.get('int_photo',False) != False:
-                        photo = request.FILES['int_photo']
+                        photo = form.getPhoto()
                     Interest.addInterest(name,desc,photo)
                     messages.success(request, ("Interest Successfully Created"))
                 else:
