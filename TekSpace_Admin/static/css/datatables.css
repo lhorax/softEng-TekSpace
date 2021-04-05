@@ -1,0 +1,16 @@
+table i{
+	padding: 5px;
+}
+
+table a{
+	color:#f8c400 !important;
+}
+
+.excelBtn{
+	background-color:#ef476f;
+	border:none;
+}
+
+.excelBtn:hover{
+	background-color:#ff164c;
+}

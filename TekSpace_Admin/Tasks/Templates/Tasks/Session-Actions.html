@@ -1,0 +1,123 @@
+{% extends 'session_actions_base.html' %}
+{% load static %}
+
+{% block title_header %}{{session}}{% endblock %}
+
+{% block tabs %}
+    <li class="nav-item ">
+        <a class="nav-link " id="module-tab" href="{% url 'Modules:index_view' %}">Modules</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" id="task-tab" href="{% url 'Tasks:index'%}">Tasks</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="student-tab" href="">Students</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="analytics-tab" href="">Analytics</a>
+    </li>
+{% endblock %}
+
+{% block tab-content %}
+    <div class="task-content" id="pills-tasks">
+        <div class='p-4 table-responsive'>
+            <table class="table table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th colspan="4" class="header-title">Tasks</th>
+                        <th style="text-align: right;"><button type="button" class="btn addBtn" data-toggle="modal" data-target="#addTask">+</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in Tasks %}
+                    <tr>
+                        <input type="text" name="task_id" value="{{task.task_id}}" hidden>
+                        <td class="clickable-row" data-href = "{% url 'Tasks:view_task' task.task_id %}">{{ task.task_title }}</td>
+                        <td class="score" >{{ student.count }}</td>
+                        <td class="dueDate">Due: {{ task.task_dateDue|date:"M d, Y" }}</td>
+                        <td class="createdDate">Created: {{ task.task_dateCreated|date:"M d, Y" }}</td>
+                        <td>
+                            <form method='POST' action = "{% url 'Tasks:index' %}">
+                            {% csrf_token %}
+                                <button type="button" data-toggle="modal" data-target="#deleteTask-{{task.task_id}}" class="deleteBtn">X</button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block modals %}
+    <!-- Task Modals -->
+    {% for task in Tasks %}
+        <div class='modal fade' id='deleteTask-{{task.task_id}}' role="dialog">
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <form method='POST' action = "{% url 'Tasks:delete_task' %}">
+                        {% csrf_token %}
+                        <input type="text" name="task_id" value="{{task.task_id}}" hidden>
+                        <div class='modal-body'>
+                            <div class='deleteWarning'>Are you sure you want to delete this Task?</div>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='submit' name='deleteTaskBtn' class='btn modalYesBtn'>Yes</button>
+                            <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+     {% endfor %}
+
+    <div class='modal fade' id='addTask' role="dialog">
+        <div class='modal-dialog'>
+            <div class='modal-content'>
+                <div class="modal-header justify-content-center">
+                    <h4 class="modal-title">Add a Task</h4>
+                </div>
+                <form method="POST" class="form-group" action="{% url 'Tasks:create_task' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class='modal-body'>
+                            <div class='form-group'>
+                                <input type='text' class='form-control' id='task_title' name='task_title' placeholder="Task Title" aria-describedby=''/* required>
+                            </div>
+                            <div class='form-group'>
+                                <textarea type='text' class='form-control' id='task_description' name='task_description' placeholder="Task Description" rows="5" aria-describedby='' required></textarea>
+                            </div>
+                            <div class='form-group'>
+                                <input type='text' class='form-control' id='task_totalScore' name='task_totalScore' placeholder="Task Total Score" aria-describedby=''/* required>
+                            </div>
+                            <div class='form-group'>
+                                <span class='row'>
+                                    <div class="col-lg">
+                                        <input type='date' class='form-control' id='task_dateDue' name='task_dateDue' placeholder="Date" aria-describedby='' required>
+                                    </div>
+                                    <div class="col-lg">
+                                        <input type='time' class='form-control' id='task_dueTime' name='task_dueTime' placeholder="Time" aria-describedby='' required>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class='form-group'>
+                                <label for="task_file" class='modalCustomFile' style="display: inline-block;">
+                                    Choose File
+                                    <input type="file" id="task_file" name="task_file" accept="pdf" class='modalFileBtn'>
+                                </label>
+                                <p class="modalFileLabel" style="display: inline-block;">file.docs</p>
+                            </div>
+                    </div>
+                    <div class='modal-footer'>
+                        <button type='submit' name='addTaskBtn' class='btn modalYesBtn'>Add</button>
+                        <button type='button' class='btn' data-dismiss='modal'>Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
