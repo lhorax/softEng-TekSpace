@@ -17,11 +17,11 @@ class TaskView(View):
 	def viewTasks(request):
 		#student = Student.objects.all()
 		sid = request.session.get('sid')
-		#session = Session.getSession(sid)
+		session = Session.getSession(sid)
 		context = {
 			'Tasks' : Tasks.getTasks(sid),
 			#'student':student,
-			#'session' : session,
+			'session' : session,
 		}
 		print(context)
 		return render(request, 'Tasks/Session-Actions.html', context)

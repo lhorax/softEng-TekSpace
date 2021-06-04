@@ -25,11 +25,14 @@ class Interest(models.Model):
     
     def updateInterest(obj, name, description, photo):
         if photo != '':
-            interest = Interest.objects.filter(int_name = obj).update(int_name = name, int_description = description, int_photo = photo)
+            interest = Interest.objects.get(int_name = obj)
+            interest.int_name = name
+            interest.int_description = description
+            interest.int_photo = photo
+            interest.save()
+            # interest = Interest.objects.filter(int_name = obj).update(int_name = name, int_description = description, int_photo = photo)
         else:
             interest = Interest.objects.filter(int_name = obj).update(int_name = name, int_description = description)
-
-
 
     def deleteInterest(id):
         Interest.objects.get(interest_id = id).delete()

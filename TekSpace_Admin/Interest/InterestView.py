@@ -47,7 +47,6 @@ class InterestView(View):
                     photo = ''
                     if request.FILES.get('int_photo',False) != False:
                         photo = form.getPhoto()
-
                     Interest.updateInterest(obj,name,desc,photo)
                     messages.success(request, ("Interest Successfully Updated"))
                     return redirect('Interest:interest_view', name = name)

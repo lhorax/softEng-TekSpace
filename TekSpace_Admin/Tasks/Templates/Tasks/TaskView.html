@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {%block extra_head %}
 <link href="{% static 'css/session-actions.css' %}" rel="stylesheet">
 <link href="{% static 'css/taskView.css' %}" rel="stylesheet">
@@ -76,16 +77,18 @@
                                 <td>{{ ex.student.user.first_name }} {{ ex.student.user.last_name }}</td>                                            
                                 {% if ex.isSubmitted %}
                                     <td class="status-1">submitted</td>
+                                    <td> 
+                                        <form method='GET' action="{% url 'Tasks:exam_details' ex.student.student_id %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="taskIcon"><i class="fas fa-clipboard-check fa-2x"></i></button>
+                                        </form>
+                                    </td>
                                 {% else %}
                                     <td class="status-0">did not submit</td>
-                                {% endif %}
-
-                                <td> 
-                                    <form method='GET' action="{% url 'Tasks:exam_details' ex.student.student_id %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="taskIcon"><i class="fas fa-clipboard-check fa-2x"></i></button>
-                                    </form>
-                                </td>
+                                    <td> 
+                                        <button type="submit" class="taskIcon" disabled><i class="disabled fas fa-clipboard-check fa-2x"></i></button>
+                                    </td>
+                                {% endif %}                                
                             </tr>
                             {% endif %}
                             {% endfor %}
